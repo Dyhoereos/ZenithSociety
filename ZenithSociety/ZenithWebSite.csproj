@@ -173,8 +173,28 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Identity\201610120818445_InitialCreate.cs" />
+    <Compile Include="Migrations\Identity\201610120818445_InitialCreate.Designer.cs">
+      <DependentUpon>201610120818445_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Identity\201610120900312_FirstMigration.cs" />
+    <Compile Include="Migrations\Identity\201610120900312_FirstMigration.Designer.cs">
+      <DependentUpon>201610120900312_FirstMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Identity\Configuration.cs" />
+    <Compile Include="Migrations\Zenith\201610120801567_First Migration.cs" />
+    <Compile Include="Migrations\Zenith\201610120801567_First Migration.Designer.cs">
+      <DependentUpon>201610120801567_First Migration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Zenith\201610120825509_FirstLastName.cs" />
+    <Compile Include="Migrations\Zenith\201610120825509_FirstLastName.Designer.cs">
+      <DependentUpon>201610120825509_FirstLastName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Zenith\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Zenith\Activity.cs" />
+    <Compile Include="Models\Zenith\Event.cs" />
+    <Compile Include="Models\Zenith\ZenithContext.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -245,6 +265,26 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ZenithDataLib\ZenithDataLib.csproj">
+      <Project>{fbb5f6d0-8d98-45b7-a15f-485e3fd4db8e}</Project>
+      <Name>ZenithDataLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\Identity\201610120818445_InitialCreate.resx">
+      <DependentUpon>201610120818445_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Identity\201610120900312_FirstMigration.resx">
+      <DependentUpon>201610120900312_FirstMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Zenith\201610120801567_First Migration.resx">
+      <DependentUpon>201610120801567_First Migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Zenith\201610120825509_FirstLastName.resx">
+      <DependentUpon>201610120825509_FirstLastName.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
