@@ -13,7 +13,7 @@ namespace ZenithSociety.Models
         : base("DefaultConnection")
         {
         }
-        public DbSet<Activity> Activity { get; set; }
-        public DbSet<Event> Event { get; set; }        
+        public DbSet<Activity> Activities { get; set; }
+        public DbSet<Event> Events { get; set; }        
     }
 }
