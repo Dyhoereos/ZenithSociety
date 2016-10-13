@@ -190,12 +190,14 @@
     <Compile Include="Migrations\Zenith\201610120825509_FirstLastName.Designer.cs">
       <DependentUpon>201610120825509_FirstLastName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Zenith\201610132220032_seeding.cs" />
+    <Compile Include="Migrations\Zenith\201610132220032_seeding.Designer.cs">
+      <DependentUpon>201610132220032_seeding.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Zenith\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Zenith\Activity.cs" />
-    <Compile Include="Models\Zenith\Event.cs" />
-    <Compile Include="Models\Zenith\ZenithContext.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ZenithContext\ZenithContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -286,6 +288,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\Zenith\201610120825509_FirstLastName.resx">
       <DependentUpon>201610120825509_FirstLastName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Zenith\201610132220032_seeding.resx">
+      <DependentUpon>201610132220032_seeding.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
