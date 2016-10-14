@@ -188,6 +188,10 @@
     <Compile Include="Migrations\Zenith\201610140340128_fixed model fk.Designer.cs">
       <DependentUpon>201610140340128_fixed model fk.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Zenith\201610140411436_Set display names.cs" />
+    <Compile Include="Migrations\Zenith\201610140411436_Set display names.Designer.cs">
+      <DependentUpon>201610140411436_Set display names.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Zenith\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -289,6 +293,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\Zenith\201610140340128_fixed model fk.resx">
       <DependentUpon>201610140340128_fixed model fk.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Zenith\201610140411436_Set display names.resx">
+      <DependentUpon>201610140411436_Set display names.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

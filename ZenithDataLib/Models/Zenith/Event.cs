@@ -22,7 +22,6 @@ namespace ZenithSociety.Models.Zenith
 
         public Activity Activity { get; set; }
 
-        [Timestamp]
         public DateTime CreationDate { get; set; }
 
         public Boolean IsActive { get; set; }

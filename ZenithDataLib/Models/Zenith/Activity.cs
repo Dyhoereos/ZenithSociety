@@ -11,9 +11,9 @@ namespace ZenithSociety.Models.Zenith
         [Key]
         public int ActivityId { get; set; }
 
+        [Display(Name="Activity")]
         public String ActivityDesc { get; set; }
 
-        [Timestamp]
         public DateTime CreationDate { get; set; }
 
         public List<Event> Events { get; set; }
