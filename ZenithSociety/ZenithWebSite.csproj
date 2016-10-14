@@ -168,6 +168,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ActivitiesController.cs" />
+    <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -182,17 +184,9 @@
       <DependentUpon>201610120900312_FirstMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Identity\Configuration.cs" />
-    <Compile Include="Migrations\Zenith\201610120801567_First Migration.cs" />
-    <Compile Include="Migrations\Zenith\201610120801567_First Migration.Designer.cs">
-      <DependentUpon>201610120801567_First Migration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Zenith\201610120825509_FirstLastName.cs" />
-    <Compile Include="Migrations\Zenith\201610120825509_FirstLastName.Designer.cs">
-      <DependentUpon>201610120825509_FirstLastName.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Zenith\201610132220032_seeding.cs" />
-    <Compile Include="Migrations\Zenith\201610132220032_seeding.Designer.cs">
-      <DependentUpon>201610132220032_seeding.cs</DependentUpon>
+    <Compile Include="Migrations\Zenith\201610140340128_fixed model fk.cs" />
+    <Compile Include="Migrations\Zenith\201610140340128_fixed model fk.Designer.cs">
+      <DependentUpon>201610140340128_fixed model fk.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Zenith\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -260,6 +254,16 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Events\Create.cshtml" />
+    <Content Include="Views\Events\Delete.cshtml" />
+    <Content Include="Views\Events\Details.cshtml" />
+    <Content Include="Views\Events\Edit.cshtml" />
+    <Content Include="Views\Events\Index.cshtml" />
+    <Content Include="Views\Activities\Create.cshtml" />
+    <Content Include="Views\Activities\Delete.cshtml" />
+    <Content Include="Views\Activities\Details.cshtml" />
+    <Content Include="Views\Activities\Edit.cshtml" />
+    <Content Include="Views\Activities\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -283,14 +287,8 @@
     <EmbeddedResource Include="Migrations\Identity\201610120900312_FirstMigration.resx">
       <DependentUpon>201610120900312_FirstMigration.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\Zenith\201610120801567_First Migration.resx">
-      <DependentUpon>201610120801567_First Migration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\Zenith\201610120825509_FirstLastName.resx">
-      <DependentUpon>201610120825509_FirstLastName.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\Zenith\201610132220032_seeding.resx">
-      <DependentUpon>201610132220032_seeding.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\Zenith\201610140340128_fixed model fk.resx">
+      <DependentUpon>201610140340128_fixed model fk.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
