@@ -6,19 +6,19 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using ZenithSociety.Models;
+using ZenithDataLib.Models;
 using ZenithSociety.Models.Zenith;
 
 namespace ZenithSociety.Controllers
 {
     public class EventsController : Controller
     {
-        private ZenithContext db = new ZenithContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Events
         public ActionResult Index()
         {
-            var events = db.Events.Include(a => a.Activity);
+            var events = db.Events.Include(a => a.Activity).Include(a => a.ApplicationUser);
             return View(events.ToList());
         }
 
@@ -41,6 +41,7 @@ namespace ZenithSociety.Controllers
         public ActionResult Create()
         {
             ViewBag.ActivityId = new SelectList(db.Activities, "ActivityId", "ActivityDesc");
+            ViewBag.UserId = new SelectList(db.Users, "Id", "UserName");
             return View();
         }
 
@@ -49,7 +50,7 @@ namespace ZenithSociety.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EventId,EventFrom,EventTo,Creator,ActivityId,CreationDate,IsActive")] Event @event)
+        public ActionResult Create([Bind(Include = "EventId,EventFrom,EventTo,UserId,ActivityId,CreationDate,IsActive")] Event @event)
         {
             if (ModelState.IsValid)
             {
@@ -59,6 +60,7 @@ namespace ZenithSociety.Controllers
             }
 
             ViewBag.ActivityId = new SelectList(db.Activities, "ActivityId", "ActivityDesc", @event.ActivityId);
+            ViewBag.UserId = new SelectList(db.Users, "Id", "UserName", @event.UserId);
             return View(@event);
         }
 
@@ -75,6 +77,7 @@ namespace ZenithSociety.Controllers
                 return HttpNotFound();
             }
             ViewBag.ActivityId = new SelectList(db.Activities, "ActivityId", "ActivityDesc", @event.ActivityId);
+            ViewBag.UserId = new SelectList(db.Users, "Id", "UserName", @event.UserId);
             return View(@event);
         }
 
@@ -83,7 +86,7 @@ namespace ZenithSociety.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EventId,EventFrom,EventTo,Creator,ActivityId,CreationDate,IsActive")] Event @event)
+        public ActionResult Edit([Bind(Include = "EventId,EventFrom,EventTo,UserId,ActivityId,CreationDate,IsActive")] Event @event)
         {
             if (ModelState.IsValid)
             {
@@ -92,6 +95,7 @@ namespace ZenithSociety.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.ActivityId = new SelectList(db.Activities, "ActivityId", "ActivityDesc", @event.ActivityId);
+            ViewBag.UserId = new SelectList(db.Users, "Id", "UserName", @event.UserId);
             return View(@event);
         }
 

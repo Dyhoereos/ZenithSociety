@@ -1,5 +1,6 @@
 namespace ZenithSociety.Migrations.Zenith
 {
+    using Microsoft.AspNet.Identity.EntityFramework;
     using Models;
     using Models.Zenith;
     using System;
@@ -7,8 +8,9 @@ namespace ZenithSociety.Migrations.Zenith
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using ZenithDataLib.Models;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ZenithSociety.Models.ZenithContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ZenithDataLib.Models.ApplicationDbContext>
     {
         public Configuration()
         {
@@ -16,10 +18,10 @@ namespace ZenithSociety.Migrations.Zenith
             MigrationsDirectory = @"Migrations\Zenith";
         }
 
-        protected override void Seed(ZenithSociety.Models.ZenithContext context)
+        protected override void Seed(ZenithDataLib.Models.ApplicationDbContext context)
         {
             context.Activities.AddOrUpdate(
-                a => a.ActivityId, 
+                a => a.ActivityId,
                 getActivities().ToArray()
             );
             context.SaveChanges();
@@ -31,6 +33,7 @@ namespace ZenithSociety.Migrations.Zenith
             context.SaveChanges();
         }
 
+        
         public static List<Activity> getActivities()
         {
             List<Activity> activities = new List<Activity>() {
@@ -102,8 +105,8 @@ namespace ZenithSociety.Migrations.Zenith
             };
             return activities;
         }
-
-        public static List<Event>  getEvents(ZenithContext db)
+        
+        public static List<Event>  getEvents(ApplicationDbContext db)
         {
             List<Event> events = new List<Event>()
             {
@@ -111,7 +114,7 @@ namespace ZenithSociety.Migrations.Zenith
                 {
                     EventFrom = Convert.ToDateTime("2016/09/27 8:30 am"),
                     EventTo = Convert.ToDateTime("2016/09/27 10:30 am"),
-                    Creator = "a",
+                    ApplicationUser = db.Users.First(a => a.UserName == "a"),
                     Activity = db.Activities.First(a => a.ActivityDesc == "Senior’s Golf Tournament"),
                     CreationDate = Convert.ToDateTime("2016/09/10"),
                     IsActive = true
@@ -120,7 +123,7 @@ namespace ZenithSociety.Migrations.Zenith
                 {
                     EventFrom = Convert.ToDateTime("2016/09/28 8:30 am"),
                     EventTo = Convert.ToDateTime("2016/09/28 10:30 am"),
-                    Creator = "a",
+                    ApplicationUser = db.Users.First(a => a.UserName == "a"),
                     Activity = db.Activities.First(a => a.ActivityDesc == "Leadership General Assembly Meeting"),
                     CreationDate = Convert.ToDateTime("2016/09/10"),
                     IsActive = true
@@ -129,7 +132,7 @@ namespace ZenithSociety.Migrations.Zenith
                 {
                     EventFrom = Convert.ToDateTime("2016/09/30 5:30 pm"),
                     EventTo = Convert.ToDateTime("2016/09/30 7:15 pm"),
-                    Creator = "a",
+                    ApplicationUser = db.Users.First(a => a.UserName == "a"),
                     Activity = db.Activities.First(a => a.ActivityDesc == "Youth Bowling Tournament"),
                     CreationDate = Convert.ToDateTime("2016/09/10"),
                     IsActive = true
@@ -138,7 +141,7 @@ namespace ZenithSociety.Migrations.Zenith
                 {
                     EventFrom = Convert.ToDateTime("2016/09/30 7:00 pm"),
                     EventTo = Convert.ToDateTime("2016/09/30 8:00 pm"),
-                    Creator = "a",
+                    ApplicationUser = db.Users.First(a => a.UserName == "a"),
                     Activity = db.Activities.First(a => a.ActivityDesc == "Young ladies cooking lessons"),
                     CreationDate = Convert.ToDateTime("2016/09/10"),
                     IsActive = true
@@ -147,7 +150,7 @@ namespace ZenithSociety.Migrations.Zenith
                 {
                     EventFrom = Convert.ToDateTime("2016/10/01 8:30 am"),
                     EventTo = Convert.ToDateTime("2016/10/01 10:30 am"),
-                    Creator = "a",
+                    ApplicationUser = db.Users.First(a => a.UserName == "a"),
                     Activity = db.Activities.First(a => a.ActivityDesc == "Youth craft lessons"),
                     CreationDate = Convert.ToDateTime("2016/09/10"),
                     IsActive = true
@@ -156,7 +159,7 @@ namespace ZenithSociety.Migrations.Zenith
                 {
                     EventFrom = Convert.ToDateTime("2016/10/01 10:30 pm"),
                     EventTo = Convert.ToDateTime("2016/10/01 12:30 pm"),
-                    Creator = "a",
+                    ApplicationUser = db.Users.First(a => a.UserName == "a"),
                     Activity = db.Activities.First(a => a.ActivityDesc == "Youth choir practice"),
                     CreationDate = Convert.ToDateTime("2016/09/10"),
                     IsActive = true
@@ -165,7 +168,7 @@ namespace ZenithSociety.Migrations.Zenith
                 {
                     EventFrom = Convert.ToDateTime("2016/10/01 12:30 pm"),
                     EventTo = Convert.ToDateTime("2016/10/01 10:30 am"),
-                    Creator = "a",
+                    ApplicationUser = db.Users.First(a => a.UserName == "a"),
                     Activity = db.Activities.First(a => a.ActivityDesc == "Lunch"),
                     CreationDate = Convert.ToDateTime("2016/09/10"),
                     IsActive = true
@@ -174,7 +177,7 @@ namespace ZenithSociety.Migrations.Zenith
                 {
                     EventFrom = Convert.ToDateTime("2016/10/02 7:30 am"),
                     EventTo = Convert.ToDateTime("2016/10/02 8:30 am"),
-                    Creator = "a",
+                    ApplicationUser = db.Users.First(a => a.UserName == "a"),
                     Activity = db.Activities.First(a => a.ActivityDesc == "Pancake Breakfast"),
                     CreationDate = Convert.ToDateTime("2016/09/10"),
                     IsActive = true
@@ -183,7 +186,7 @@ namespace ZenithSociety.Migrations.Zenith
                 {
                     EventFrom = Convert.ToDateTime("2016/10/02 8:30 am"),
                     EventTo = Convert.ToDateTime("2016/10/02 10:30 am"),
-                    Creator = "a",
+                    ApplicationUser = db.Users.First(a => a.UserName == "a"),
                     Activity = db.Activities.First(a => a.ActivityDesc == "Swimming Lessons for the youth"),
                     CreationDate = Convert.ToDateTime("2016/09/10"),
                     IsActive = true
@@ -192,7 +195,7 @@ namespace ZenithSociety.Migrations.Zenith
                 {
                     EventFrom = Convert.ToDateTime("2016/10/02 8:30 am"),
                     EventTo = Convert.ToDateTime("2016/10/02 10:30 am"),
-                    Creator = "a",
+                    ApplicationUser = db.Users.First(a => a.UserName == "a"),
                     Activity = db.Activities.First(a => a.ActivityDesc == "Swimming Exercise for parents"),
                     CreationDate = Convert.ToDateTime("2016/09/10"),
                     IsActive = true
@@ -201,7 +204,7 @@ namespace ZenithSociety.Migrations.Zenith
                 {
                     EventFrom = Convert.ToDateTime("2016/10/02 10:30 am"),
                     EventTo = Convert.ToDateTime("2016/10/02 12:30 pm"),
-                    Creator = "a",
+                    ApplicationUser = db.Users.First(a => a.UserName == "a"),
                     Activity = db.Activities.First(a => a.ActivityDesc == "Bingo Tournament"),
                     CreationDate = Convert.ToDateTime("2016/09/10"),
                     IsActive = true
@@ -210,7 +213,7 @@ namespace ZenithSociety.Migrations.Zenith
                 {
                     EventFrom = Convert.ToDateTime("2016/10/02 12:00 am"),
                     EventTo = Convert.ToDateTime("2016/10/02 1:00 pm"),
-                    Creator = "a",
+                    ApplicationUser = db.Users.First(a => a.UserName == "a"),
                     Activity = db.Activities.First(a => a.ActivityDesc == "BBQ Lunch"),
                     CreationDate = Convert.ToDateTime("2016/09/10"),
                     IsActive = true
@@ -219,7 +222,7 @@ namespace ZenithSociety.Migrations.Zenith
                 {
                     EventFrom = Convert.ToDateTime("2016/10/02 1:00 pm"),
                     EventTo = Convert.ToDateTime("2016/10/02 6:00 pm"),
-                    Creator = "a",
+                    ApplicationUser = db.Users.First(a => a.UserName == "a"),
                     Activity = db.Activities.First(a => a.ActivityDesc == "Garage Sale"),
                     CreationDate = Convert.ToDateTime("2016/09/10"),
                     IsActive = true
@@ -227,6 +230,6 @@ namespace ZenithSociety.Migrations.Zenith
             };
             return events;
         }
-
+        
     }
 }

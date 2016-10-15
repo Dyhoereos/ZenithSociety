@@ -3,14 +3,20 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using ZenithSociety.Models.Zenith;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ZenithDataLib.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        public override string UserName { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
+        
+        public virtual List<Event> Event { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -27,6 +33,9 @@ namespace ZenithDataLib.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
+
+        public DbSet<Activity> Activities { get; set; }
+        public DbSet<Event> Events { get; set; }
 
         public static ApplicationDbContext Create()
         {

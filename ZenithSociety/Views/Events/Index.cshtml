@@ -15,13 +15,13 @@
             @Html.DisplayNameFor(model => model.Activity.ActivityDesc)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.ApplicationUser.UserName)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.EventFrom)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.EventTo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Creator)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CreationDate)
@@ -38,13 +38,13 @@
             @Html.DisplayFor(modelItem => item.Activity.ActivityDesc)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.EventFrom)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.EventTo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Creator)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CreationDate)

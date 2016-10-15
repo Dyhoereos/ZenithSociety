@@ -6,14 +6,14 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using ZenithSociety.Models;
+using ZenithDataLib.Models;
 using ZenithSociety.Models.Zenith;
 
 namespace ZenithSociety.Controllers
 {
     public class ActivitiesController : Controller
     {
-        private ZenithContext db = new ZenithContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Activities
         public ActionResult Index()
