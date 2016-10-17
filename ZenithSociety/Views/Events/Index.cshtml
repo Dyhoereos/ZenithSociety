@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    var currentDate = new DateTime();
 }
 
 <h2>Index</h2>
@@ -10,7 +11,7 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
-    <tr>
+    @*<tr>
         <th>
             @Html.DisplayNameFor(model => model.Activity.ActivityDesc)
         </th>
@@ -20,7 +21,7 @@
         <th>
             @Html.DisplayNameFor(model => model.EventFrom)
         </th>
-        <th>
+        <th>    
             @Html.DisplayNameFor(model => model.EventTo)
         </th>
         <th>
@@ -30,28 +31,30 @@
             @Html.DisplayNameFor(model => model.IsActive)
         </th>
         <th></th>
-    </tr>
+    </tr>*@
 
 @foreach (var item in Model) {
+
+    if (item.EventFrom.Date != currentDate)
+    {
+        currentDate = item.EventFrom.Date;
+
+        <tr>
+            <th colspan="3">
+                @String.Format("{0:dddd, MMMM d, yyyy}", currentDate)       
+            </th>
+        </tr>
+    }
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EventFrom) -
+            @Html.DisplayFor(modelItem => item.EventTo)
+        </td>
+            
         <td>
             @Html.DisplayFor(modelItem => item.Activity.ActivityDesc)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventFrom)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventTo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreationDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsActive)
-        </td>
+        
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.EventId }) |
             @Html.ActionLink("Details", "Details", new { id=item.EventId }) |
@@ -59,5 +62,4 @@
         </td>
     </tr>
 }
-
 </table>
