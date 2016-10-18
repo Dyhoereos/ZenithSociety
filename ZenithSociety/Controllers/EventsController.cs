@@ -23,6 +23,8 @@ namespace ZenithSociety.Controllers
         public ActionResult Index()
         {
             var events = db.Events.Include(@a => @a.Activity).Include(@a => @a.ApplicationUser);
+            events.OrderBy(item => item.EventFrom);
+
             return View(events.ToList());
         }
 

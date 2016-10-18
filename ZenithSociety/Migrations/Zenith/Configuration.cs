@@ -300,6 +300,126 @@ namespace ZenithSociety.Migrations.Zenith
                     CreationDate = Convert.ToDateTime("2016/09/10"),
                     IsActive = true
                 },
+                new Event
+                {
+                    EventId = ++counter,
+                    EventFrom = Convert.ToDateTime("2016/10/18 8:30 am"),
+                    EventTo = Convert.ToDateTime("2016/10/18 10:30 am"),
+                    ApplicationUser = db.Users.First(a => a.UserName == "a"),
+                    Activity = db.Activities.First(a => a.ActivityDesc == "Senior’s Golf Tournament"),
+                    CreationDate = Convert.ToDateTime("2016/09/10"),
+                    IsActive = true
+                },
+                new Event
+                {
+                    EventId = ++counter,
+                    EventFrom = Convert.ToDateTime("2016/10/24 5:30 pm"),
+                    EventTo = Convert.ToDateTime("2016/10/24 7:15 pm"),
+                    ApplicationUser = db.Users.First(a => a.UserName == "a"),
+                    Activity = db.Activities.First(a => a.ActivityDesc == "Youth Bowling Tournament"),
+                    CreationDate = Convert.ToDateTime("2016/09/10"),
+                    IsActive = true
+                },
+                new Event
+                {
+                    EventId = ++counter,
+                    EventFrom = Convert.ToDateTime("2016/10/23 6:00 pm"),
+                    EventTo = Convert.ToDateTime("2016/10/23 8:00 pm"),
+                    ApplicationUser = db.Users.First(a => a.UserName == "a"),
+                    Activity = db.Activities.First(a => a.ActivityDesc == "Young ladies cooking lessons"),
+                    CreationDate = Convert.ToDateTime("2016/09/10"),
+                    IsActive = true
+                },
+                new Event
+                {
+                    EventId = ++counter,
+                    EventFrom = Convert.ToDateTime("2016/10/25 8:30 am"),
+                    EventTo = Convert.ToDateTime("2016/10/25 10:30 am"),
+                    ApplicationUser = db.Users.First(a => a.UserName == "a"),
+                    Activity = db.Activities.First(a => a.ActivityDesc == "Youth craft lessons"),
+                    CreationDate = Convert.ToDateTime("2016/09/10"),
+                    IsActive = true
+                },
+                new Event
+                {
+                    EventId = ++counter,
+                    EventFrom = Convert.ToDateTime("2016/10/17 10:30 pm"),
+                    EventTo = Convert.ToDateTime("2016/10/17 12:30 pm"),
+                    ApplicationUser = db.Users.First(a => a.UserName == "a"),
+                    Activity = db.Activities.First(a => a.ActivityDesc == "Youth choir practice"),
+                    CreationDate = Convert.ToDateTime("2016/09/10"),
+                    IsActive = true
+                },
+                new Event
+                {
+                    EventId = ++counter,
+                    EventFrom = Convert.ToDateTime("2016/10/20 12:00 pm"),
+                    EventTo = Convert.ToDateTime("2016/10/20 1:30 pm"),
+                    ApplicationUser = db.Users.First(a => a.UserName == "a"),
+                    Activity = db.Activities.First(a => a.ActivityDesc == "Lunch"),
+                    CreationDate = Convert.ToDateTime("2016/09/10"),
+                    IsActive = true
+                },
+                new Event
+                {
+                    EventId = ++counter,
+                    EventFrom = Convert.ToDateTime("2016/10/27 7:30 am"),
+                    EventTo = Convert.ToDateTime("2016/10/27 8:30 am"),
+                    ApplicationUser = db.Users.First(a => a.UserName == "a"),
+                    Activity = db.Activities.First(a => a.ActivityDesc == "Pancake Breakfast"),
+                    CreationDate = Convert.ToDateTime("2016/09/10"),
+                    IsActive = true
+                },
+                new Event
+                {
+                    EventId = ++counter,
+                    EventFrom = Convert.ToDateTime("2016/10/24 8:30 am"),
+                    EventTo = Convert.ToDateTime("2016/10/24 10:30 am"),
+                    ApplicationUser = db.Users.First(a => a.UserName == "a"),
+                    Activity = db.Activities.First(a => a.ActivityDesc == "Swimming Lessons for the youth"),
+                    CreationDate = Convert.ToDateTime("2016/09/10"),
+                    IsActive = true
+                },
+                new Event
+                {
+                    EventId = ++counter,
+                    EventFrom = Convert.ToDateTime("2016/10/28 8:30 am"),
+                    EventTo = Convert.ToDateTime("2016/10/28 10:30 am"),
+                    ApplicationUser = db.Users.First(a => a.UserName == "a"),
+                    Activity = db.Activities.First(a => a.ActivityDesc == "Swimming Exercise for parents"),
+                    CreationDate = Convert.ToDateTime("2016/09/10"),
+                    IsActive = true
+                },
+                new Event
+                {
+                    EventId = ++counter,
+                    EventFrom = Convert.ToDateTime("2016/10/26 10:30 am"),
+                    EventTo = Convert.ToDateTime("2016/10/26 12:30 pm"),
+                    ApplicationUser = db.Users.First(a => a.UserName == "a"),
+                    Activity = db.Activities.First(a => a.ActivityDesc == "Bingo Tournament"),
+                    CreationDate = Convert.ToDateTime("2016/09/10"),
+                    IsActive = true
+                },
+                new Event
+                {
+                    EventId = ++counter,
+                    EventFrom = Convert.ToDateTime("2016/10/21 12:00 am"),
+                    EventTo = Convert.ToDateTime("2016/10/21 1:00 pm"),
+                    ApplicationUser = db.Users.First(a => a.UserName == "a"),
+                    Activity = db.Activities.First(a => a.ActivityDesc == "BBQ Lunch"),
+                    CreationDate = Convert.ToDateTime("2016/09/10"),
+                    IsActive = true
+                },
+                new Event
+                {
+                    EventId = ++counter,
+                    EventFrom = Convert.ToDateTime("2016/10/22 1:00 pm"),
+                    EventTo = Convert.ToDateTime("2016/10/22 6:00 pm"),
+                    ApplicationUser = db.Users.First(a => a.UserName == "a"),
+                    Activity = db.Activities.First(a => a.ActivityDesc == "Garage Sale"),
+                    CreationDate = Convert.ToDateTime("2016/09/10"),
+                    IsActive = true
+                },
             };
             return events;
         }

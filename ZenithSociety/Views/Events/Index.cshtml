@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Index";
     var curDate = new DateTime();
+    Model.OrderBy(item => item.EventFrom);
 }
 
 <h2>Events for the current week</h2>
