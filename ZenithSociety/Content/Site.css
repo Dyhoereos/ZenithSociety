@@ -22,3 +22,20 @@ select,
 textarea {
     max-width: 280px;
 }
+
+#main-table, #main-table td, #main-table th {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+#main-table th {
+    background-color: #c0fffb;
+    text-align: center;
+}
+
+#main-table tr:first-child td {
+    width: 25%;
+}
+
+
+

@@ -5,9 +5,9 @@
     var curDate = new DateTime();
 }
 
-<h2>Events</h2>
+<h2>Events for the current week</h2>
 
-<table class="table">
+<table class="table" id="main-table">
 
 @foreach (var item in Model)
 {
@@ -18,16 +18,17 @@
                 @String.Format("{0:D}", item.EventFrom)
             </th>
         </tr>
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventFrom) - 
-                @Html.DisplayFor(modelItem => item.EventTo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Activity.ActivityDesc)
-            </td>
-        </tr>
+        curDate = item.EventFrom.Date;
     }
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EventFrom) - 
+            @Html.DisplayFor(modelItem => item.EventTo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Activity.ActivityDesc)
+        </td>
+    </tr>
 }
 
 </table>

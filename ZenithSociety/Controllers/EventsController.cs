@@ -27,7 +27,7 @@ namespace ZenithSociety.Controllers
         }
 
         // admin GET: Events
-        [Authorize(Roles = "Admin, Member")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Admin()
         {
             var events = db.Events.Include(@a => @a.Activity).Include(@a => @a.ApplicationUser);

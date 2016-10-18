@@ -16,9 +16,6 @@ namespace ZenithSociety.Models.Zenith
         [Display(Name = "Creator")]
         public string UserId { get; set; }
 
-        [Display(Name = "Creator")]
-        public ApplicationUser ApplicationUser { get; set; }
-
         [Display(Name = "From Date & Time")]
         [Required]
         public DateTime EventFrom { get; set; }
