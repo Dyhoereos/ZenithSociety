@@ -22,8 +22,8 @@
     }
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.EventFrom) - 
-            @Html.DisplayFor(modelItem => item.EventTo)
+            @String.Format("{0:t}", item.EventFrom) - 
+            @String.Format("{0:t}", item.EventTo)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Activity.ActivityDesc)
