@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Delete";
+    var ActDesc = ViewBag.ActDesc as String;
 }
 
 <h2>Delete</h2>
@@ -16,7 +17,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Activity.ActivityDesc)
+            @ActDesc
         </dd>
 
         <dt>

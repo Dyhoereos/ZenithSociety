@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Details";
-    var test = ViewBag.ActDesc as String;
+    var ActDesc = ViewBag.ActDesc as String;
 }
 
 <h2>Details</h2>
@@ -17,8 +17,7 @@
         </dt>
 
         <dd>
-            @*@Html.DisplayFor(modelItem => modelItem.Activity.ActivityDesc)*@
-            @test
+            @ActDesc
         </dd>
 
         <dt>

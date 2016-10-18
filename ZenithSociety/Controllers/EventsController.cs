@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -41,7 +44,6 @@ namespace ZenithSociety.Controllers
             }
             Event @event = db.Events.Find(id);
             Activity @activity = db.Activities.Find(@event.ActivityId);
-            System.Diagnostics.Debug.WriteLine(@activity.ActivityDesc);
             ViewBag.ActDesc = @activity.ActivityDesc;
 
             if (@event == null)
@@ -66,10 +68,17 @@ namespace ZenithSociety.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult Create([Bind(Include = "EventId,EventFrom,EventTo,UserId,ActivityId,CreationDate,IsActive")] Event @event)
+        public ActionResult Create([Bind(Include = "EventId,EventFrom,EventTo,UserId,CreationDate,ActivityId,IsActive")] Event @event)
         {
             if (ModelState.IsValid)
             {
+
+                @event.CreationDate = DateTime.Now;
+
+                var store = new UserStore<ApplicationUser>(db);
+                var userManager = new UserManager<ApplicationUser>(store);
+                @event.ApplicationUser = userManager.FindByNameAsync(User.Identity.Name).Result;
+
                 db.Events.Add(@event);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -108,12 +117,16 @@ namespace ZenithSociety.Controllers
         {
             if (ModelState.IsValid)
             {
+                @event.ApplicationUser = System.Web.HttpContext.Current.
+                    GetOwinContext().GetUserManager<ApplicationUserManager>().
+                    FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+                @event.CreationDate = DateTime.Now;
                 db.Entry(@event).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Admin");
             }
-            ViewBag.ActivityId = new SelectList(db.Activities, "ActivityId", "ActivityDesc", @event.ActivityId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "UserName", @event.UserId);
+            //ViewBag.ActivityId = new SelectList(db.Activities, "ActivityId", "ActivityDesc", @event.ActivityId);
+            //ViewBag.UserId = new SelectList(db.Users, "Id", "UserName", @event.UserId);
             return View(@event);
         }
 
@@ -126,6 +139,8 @@ namespace ZenithSociety.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Event @event = db.Events.Find(id);
+            Activity @activity = db.Activities.Find(@event.ActivityId);
+            ViewBag.ActDesc = @activity.ActivityDesc;
             if (@event == null)
             {
                 return HttpNotFound();

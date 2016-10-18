@@ -8,7 +8,7 @@ using ZenithDataLib.Models;
 
 namespace ZenithSociety.Models.Zenith
 {
-    public class Event
+    public partial class Event
     {
         [Key]
         public int EventId { get; set; }
