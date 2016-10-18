@@ -18,13 +18,15 @@ namespace ZenithSociety.Models.Zenith
         public DateTime EventTo { get; set; }
 
         [Display(Name = "Creator")]
+        [ForeignKey("ApplicationUser")]
         public string UserId { get; set; }
-        [ForeignKey("UserId")]
+        
         public virtual ApplicationUser ApplicationUser { get; set; }
 
         [Display(Name = "Activity")]
+        [ForeignKey("Activity")]
         public int ActivityId { get; set; }
-
+        
         public Activity Activity { get; set; }
 
         public DateTime CreationDate { get; set; }

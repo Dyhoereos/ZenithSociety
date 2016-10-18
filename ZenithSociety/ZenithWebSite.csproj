@@ -168,20 +168,15 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\ActivitiesController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Zenith\201610142356346_init.cs" />
-    <Compile Include="Migrations\Zenith\201610142356346_init.Designer.cs">
-      <DependentUpon>201610142356346_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Zenith\201610150001090_userid fk.cs" />
-    <Compile Include="Migrations\Zenith\201610150001090_userid fk.Designer.cs">
-      <DependentUpon>201610150001090_userid fk.cs</DependentUpon>
+    <Compile Include="Migrations\Zenith\201610180051177_init.cs" />
+    <Compile Include="Migrations\Zenith\201610180051177_init.Designer.cs">
+      <DependentUpon>201610180051177_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Zenith\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -256,7 +251,7 @@
     <Content Include="Views\Activities\Details.cshtml" />
     <Content Include="Views\Activities\Edit.cshtml" />
     <Content Include="Views\Activities\Index.cshtml" />
-    <None Include="Views\Events\Index.bak" />
+    <Content Include="Views\Events\Admin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -276,11 +271,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\Zenith\201610142356346_init.resx">
-      <DependentUpon>201610142356346_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\Zenith\201610150001090_userid fk.resx">
-      <DependentUpon>201610150001090_userid fk.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\Zenith\201610180051177_init.resx">
+      <DependentUpon>201610180051177_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

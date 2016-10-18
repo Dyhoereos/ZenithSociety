@@ -16,13 +16,23 @@ namespace ZenithSociety.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Events
+        [Authorize(Roles ="Admin, Member")]
         public ActionResult Index()
         {
-            var events = db.Events.Include(a => a.Activity).Include(a => a.ApplicationUser);
+            var events = db.Events.Include(@a => @a.Activity).Include(@a => @a.ApplicationUser);
+            return View(events.ToList());
+        }
+
+        // admin GET: Events
+        [Authorize(Roles = "Admin, Member")]
+        public ActionResult Admin()
+        {
+            var events = db.Events.Include(@a => @a.Activity).Include(@a => @a.ApplicationUser);
             return View(events.ToList());
         }
 
         // GET: Events/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -30,6 +40,10 @@ namespace ZenithSociety.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Event @event = db.Events.Find(id);
+            Activity @activity = db.Activities.Find(@event.ActivityId);
+            System.Diagnostics.Debug.WriteLine(@activity.ActivityDesc);
+            ViewBag.ActDesc = @activity.ActivityDesc;
+
             if (@event == null)
             {
                 return HttpNotFound();
@@ -38,6 +52,7 @@ namespace ZenithSociety.Controllers
         }
 
         // GET: Events/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.ActivityId = new SelectList(db.Activities, "ActivityId", "ActivityDesc");
@@ -50,6 +65,7 @@ namespace ZenithSociety.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "EventId,EventFrom,EventTo,UserId,ActivityId,CreationDate,IsActive")] Event @event)
         {
             if (ModelState.IsValid)
@@ -65,6 +81,7 @@ namespace ZenithSociety.Controllers
         }
 
         // GET: Events/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -86,6 +103,7 @@ namespace ZenithSociety.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "EventId,EventFrom,EventTo,UserId,ActivityId,CreationDate,IsActive")] Event @event)
         {
             if (ModelState.IsValid)
@@ -100,6 +118,7 @@ namespace ZenithSociety.Controllers
         }
 
         // GET: Events/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -117,6 +136,7 @@ namespace ZenithSociety.Controllers
         // POST: Events/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Event @event = db.Events.Find(id);
