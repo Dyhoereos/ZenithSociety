@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZenithDataLib.Models;
 
 namespace ZenithSociety.Models.Zenith
 {
@@ -12,11 +13,17 @@ namespace ZenithSociety.Models.Zenith
     
     public class EventMetaData{
 
-        [Display(Name = "From Date")]
+        [Display(Name = "Creator")]
+        public string UserId { get; set; }
+
+        [Display(Name = "Creator")]
+        public ApplicationUser ApplicationUser { get; set; }
+
+        [Display(Name = "From Date & Time")]
         [Required]
         public DateTime EventFrom { get; set; }
 
-        [Display(Name = "To Date")]
+        [Display(Name = "To Date & Time")]
         [Required]
         public DateTime EventTo { get; set; }
 
@@ -25,5 +32,8 @@ namespace ZenithSociety.Models.Zenith
 
         [Display(Name = "Is Active")]
         public Boolean IsActive { get; set; }
+
+        [Display(Name = "Date Created")]
+        public DateTime CreationDate { get; set; }
     }
 }
