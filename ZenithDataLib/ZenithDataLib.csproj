@@ -58,7 +58,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ZenithPartials\Event.cs" />
     <Compile Include="Models\Zenith\Activity.cs" />
     <Compile Include="Models\Zenith\Event.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

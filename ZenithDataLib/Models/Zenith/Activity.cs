@@ -14,6 +14,7 @@ namespace ZenithSociety.Models.Zenith
         [Display(Name="Activity")]
         public String ActivityDesc { get; set; }
 
+        [Display(Name = "Date Created")]
         public DateTime CreationDate { get; set; }
 
         public List<Event> Events { get; set; }

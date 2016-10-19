@@ -53,6 +53,8 @@ namespace ZenithSociety.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "ActivityId,ActivityDesc,CreationDate")] Activity activity)
         {
+            activity.CreationDate = DateTime.Now;
+
             if (ModelState.IsValid)
             {
                 db.Activities.Add(activity);

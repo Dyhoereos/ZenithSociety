@@ -13,8 +13,10 @@ namespace ZenithSociety.Models.Zenith
         [Key]
         public int EventId { get; set; }
 
+        [Display(Name = "From Date & Time")]
         public DateTime EventFrom { get; set; }
 
+        [Display(Name = "To Date & Time")]
         public DateTime EventTo { get; set; }
 
         [Display(Name = "Creator")]
@@ -29,8 +31,10 @@ namespace ZenithSociety.Models.Zenith
         [ForeignKey("ActivityId")]
         public Activity Activity { get; set; }
 
+        [Display(Name = "Date Created")]
         public DateTime CreationDate { get; set; }
 
+        [Display(Name = "Is Active")]
         public Boolean IsActive { get; set; }
     }
 }
