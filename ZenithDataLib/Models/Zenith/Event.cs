@@ -5,10 +5,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using ZenithDataLib.Models;
+using ZenithDataLib.Models.Zenith.CustomValidation;
 
 namespace ZenithSociety.Models.Zenith
 {
-    public partial class Event
+    public class Event
     {
         [Key]
         public int EventId { get; set; }
@@ -17,6 +18,8 @@ namespace ZenithSociety.Models.Zenith
         public DateTime EventFrom { get; set; }
 
         [Display(Name = "To Date & Time")]
+        [IsDateAfter("EventFrom")]
+        [IsSameDay("EventFrom")]
         public DateTime EventTo { get; set; }
 
         [Display(Name = "Creator")]

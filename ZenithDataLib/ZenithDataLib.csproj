@@ -59,6 +59,8 @@
   <ItemGroup>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Zenith\Activity.cs" />
+    <Compile Include="Models\Zenith\CustomValidation\IsDateAfter.cs" />
+    <Compile Include="Models\Zenith\CustomValidation\IsSameDay.cs" />
     <Compile Include="Models\Zenith\Event.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
