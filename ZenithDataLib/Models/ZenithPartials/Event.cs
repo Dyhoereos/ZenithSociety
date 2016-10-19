@@ -17,11 +17,9 @@ namespace ZenithSociety.Models.Zenith
         public string UserId { get; set; }
 
         [Display(Name = "From Date & Time")]
-        [Required]
         public DateTime EventFrom { get; set; }
 
         [Display(Name = "To Date & Time")]
-        [Required]
         public DateTime EventTo { get; set; }
 
         [Display(Name = "Activity")]

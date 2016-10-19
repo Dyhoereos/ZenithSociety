@@ -3,7 +3,7 @@ namespace ZenithSociety.Migrations.Zenith
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class init : DbMigration
+    public partial class FirstMigration : DbMigration
     {
         public override void Up()
         {
@@ -110,9 +110,9 @@ namespace ZenithSociety.Migrations.Zenith
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Events", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Events", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Events", "ActivityId", "dbo.Activities");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");

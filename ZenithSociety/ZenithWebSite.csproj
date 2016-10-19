@@ -175,17 +175,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Zenith\201610180051177_init.cs" />
-    <Compile Include="Migrations\Zenith\201610180051177_init.Designer.cs">
-      <DependentUpon>201610180051177_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Zenith\201610181741399_Change fk.cs" />
-    <Compile Include="Migrations\Zenith\201610181741399_Change fk.Designer.cs">
-      <DependentUpon>201610181741399_Change fk.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Zenith\201610182047065_AddMoreEvents.cs" />
-    <Compile Include="Migrations\Zenith\201610182047065_AddMoreEvents.Designer.cs">
-      <DependentUpon>201610182047065_AddMoreEvents.cs</DependentUpon>
+    <Compile Include="Migrations\Zenith\201610182104139_FirstMigration.cs" />
+    <Compile Include="Migrations\Zenith\201610182104139_FirstMigration.Designer.cs">
+      <DependentUpon>201610182104139_FirstMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Zenith\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -280,14 +272,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\Zenith\201610180051177_init.resx">
-      <DependentUpon>201610180051177_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\Zenith\201610181741399_Change fk.resx">
-      <DependentUpon>201610181741399_Change fk.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\Zenith\201610182047065_AddMoreEvents.resx">
-      <DependentUpon>201610182047065_AddMoreEvents.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\Zenith\201610182104139_FirstMigration.resx">
+      <DependentUpon>201610182104139_FirstMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

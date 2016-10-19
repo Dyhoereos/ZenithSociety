@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity.Migrations;
 using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Web;
 using System.Web.Mvc;
 using ZenithDataLib.Models;
 using ZenithSociety.Models.Zenith;
+using System.Globalization;
 
 namespace ZenithSociety.Controllers
 {
@@ -19,13 +21,25 @@ namespace ZenithSociety.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Events
-        [Authorize(Roles ="Admin, Member")]
         public ActionResult Index()
         {
-            var events = db.Events.Include(@a => @a.Activity).Include(@a => @a.ApplicationUser);
-            events.OrderBy(item => item.EventFrom);
-
-            return View(events.ToList());
+            //determine first and last dates of week
+            DayOfWeek firstWeekDay = DayOfWeek.Monday;
+            DateTime startDateOfWeek = DateTime.Now;
+            System.Diagnostics.Debug.WriteLine(firstWeekDay.ToString());
+            System.Diagnostics.Debug.WriteLine(startDateOfWeek.Date.ToString());
+            while (startDateOfWeek.DayOfWeek != firstWeekDay)
+            {
+                startDateOfWeek = startDateOfWeek.AddDays(-1d);
+                System.Diagnostics.Debug.WriteLine(startDateOfWeek.Date.ToString());
+            }
+            DateTime endDateOfWeek = startDateOfWeek.AddDays(7d);
+            
+            var events = db.Events.Include(@a => @a.Activity).Include(@a => @a.ApplicationUser)
+                .Where(a => a.EventFrom >= startDateOfWeek)
+                .Where(a => a.EventFrom <= endDateOfWeek);
+            
+            return View(events.ToList().OrderBy(item => item.EventFrom));
         }
 
         // admin GET: Events
@@ -33,7 +47,8 @@ namespace ZenithSociety.Controllers
         public ActionResult Admin()
         {
             var events = db.Events.Include(@a => @a.Activity).Include(@a => @a.ApplicationUser);
-            return View(events.ToList());
+
+            return View(events.ToList().OrderBy(item => item.EventFrom));
         }
 
         // GET: Events/Details/5
@@ -115,15 +130,14 @@ namespace ZenithSociety.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult Edit([Bind(Include = "EventId,EventFrom,EventTo,UserId,ActivityId,CreationDate,IsActive")] Event @event)
+        public ActionResult Edit([Bind(Include = "EventId,UserId,EventTo,EventFrom,CreationDate,ActivityId,IsActive")] Event @event)
         {
             if (ModelState.IsValid)
             {
-                @event.ApplicationUser = System.Web.HttpContext.Current.
-                    GetOwinContext().GetUserManager<ApplicationUserManager>().
-                    FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-                @event.CreationDate = DateTime.Now;
-                db.Entry(@event).State = EntityState.Modified;
+                //store back unchanged creation date and user id
+                @event.CreationDate = db.Events.Find(@event.EventId).CreationDate;
+                @event.UserId = db.Events.Find(@event.EventId).UserId;
+                db.Events.AddOrUpdate(@event);
                 db.SaveChanges();
                 return RedirectToAction("Admin");
             }

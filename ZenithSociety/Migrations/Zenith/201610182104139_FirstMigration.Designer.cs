@@ -7,13 +7,13 @@ namespace ZenithSociety.Migrations.Zenith
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddMoreEvents : IMigrationMetadata
+    public sealed partial class FirstMigration : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddMoreEvents));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(FirstMigration));
         
         string IMigrationMetadata.Id
         {
-            get { return "201610182047065_AddMoreEvents"; }
+            get { return "201610182104139_FirstMigration"; }
         }
         
         string IMigrationMetadata.Source

@@ -6,3 +6,5 @@ Add-Migration -ProjectName ZenithWebSite -ConfigurationTypeName ZenithSociety.Mi
 
 Update-Database -ProjectName ZenithWebSite -ConfigurationTypeName ZenithSociety.Migrations.Zenith.Configuration
 Update-Database -ProjectName ZenithWebSite -ConfigurationTypeName ZenithSociety.Migrations.Identity.Configuration
+
+System.Diagnostics.Debug.WriteLine("SomeText");
