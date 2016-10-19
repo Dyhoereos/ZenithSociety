@@ -26,18 +26,17 @@ namespace ZenithSociety.Controllers
             //determine first and last dates of week
             DayOfWeek firstWeekDay = DayOfWeek.Monday;
             DateTime startDateOfWeek = DateTime.Now;
-            System.Diagnostics.Debug.WriteLine(firstWeekDay.ToString());
-            System.Diagnostics.Debug.WriteLine(startDateOfWeek.Date.ToString());
             while (startDateOfWeek.DayOfWeek != firstWeekDay)
             {
                 startDateOfWeek = startDateOfWeek.AddDays(-1d);
-                System.Diagnostics.Debug.WriteLine(startDateOfWeek.Date.ToString());
+                System.Diagnostics.Debug.WriteLine("start date: " + startDateOfWeek.Date.ToString());
             }
             DateTime endDateOfWeek = startDateOfWeek.AddDays(7d);
-            
+            System.Diagnostics.Debug.WriteLine("end date:" + endDateOfWeek.Date.ToString());
+
             var events = db.Events.Include(@a => @a.Activity).Include(@a => @a.ApplicationUser)
                 .Where(a => a.EventFrom >= startDateOfWeek)
-                .Where(a => a.EventFrom <= endDateOfWeek)
+                .Where(a => a.EventFrom.Day < endDateOfWeek.Day)
                 .Where(a => a.IsActive == true);
             
             events = events.OrderBy(item => item.EventFrom);
