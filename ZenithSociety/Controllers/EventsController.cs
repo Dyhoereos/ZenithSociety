@@ -39,7 +39,9 @@ namespace ZenithSociety.Controllers
                 .Where(a => a.EventFrom >= startDateOfWeek)
                 .Where(a => a.EventFrom <= endDateOfWeek);
             
-            return View(events.ToList().OrderBy(item => item.EventFrom));
+            events = events.OrderBy(item => item.EventFrom);
+
+            return View(events.ToList());
         }
 
         // admin GET: Events
