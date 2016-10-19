@@ -11,7 +11,7 @@ namespace ZenithDataLib.Models.Zenith.CustomValidation
     {
         public string EventFromProperty { get; private set; }
 
-        public IsSameDay(string EventFrom) : base("The event cannot last more than one day")
+        public IsSameDay(string EventFrom) : base("The event cannot last more than one day.")
         {
             this.EventFromProperty = EventFrom;
         }

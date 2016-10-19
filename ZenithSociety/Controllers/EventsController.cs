@@ -37,7 +37,8 @@ namespace ZenithSociety.Controllers
             
             var events = db.Events.Include(@a => @a.Activity).Include(@a => @a.ApplicationUser)
                 .Where(a => a.EventFrom >= startDateOfWeek)
-                .Where(a => a.EventFrom <= endDateOfWeek);
+                .Where(a => a.EventFrom <= endDateOfWeek)
+                .Where(a => a.IsActive == true);
             
             events = events.OrderBy(item => item.EventFrom);
 

@@ -12,6 +12,7 @@ namespace ZenithSociety.Models.Zenith
         public int ActivityId { get; set; }
 
         [Display(Name="Activity")]
+        [Required]
         public String ActivityDesc { get; set; }
 
         [Display(Name = "Date Created")]

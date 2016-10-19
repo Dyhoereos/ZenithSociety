@@ -11,7 +11,7 @@ namespace ZenithDataLib.Models.Zenith.CustomValidation
     {
         public string EventFromProperty { get; private set; }
 
-        public IsDateAfter(string EventFrom) : base("Event end time must be after event begin time")
+        public IsDateAfter(string EventFrom) : base("Event end time must be after event begin time.")
         {
             this.EventFromProperty = EventFrom;
         }
