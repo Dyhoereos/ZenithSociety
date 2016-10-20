@@ -1,18 +1,14 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity.Migrations;
-using Microsoft.AspNet.Identity.Owin;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using ZenithDataLib.Models;
 using ZenithSociety.Models.Zenith;
-using System.Globalization;
 
 namespace ZenithSociety.Controllers
 {
@@ -25,32 +21,37 @@ namespace ZenithSociety.Controllers
         {
             //determine first and last dates of week
             DayOfWeek firstWeekDay = DayOfWeek.Monday;
-            DateTime startDateOfWeek = DateTime.Now;
+            DateTime startDateOfWeek = DateTime.Now.Date;
             while (startDateOfWeek.DayOfWeek != firstWeekDay)
             {
                 startDateOfWeek = startDateOfWeek.AddDays(-1d);
-                System.Diagnostics.Debug.WriteLine("start date: " + startDateOfWeek.Date.ToString());
             }
             DateTime endDateOfWeek = startDateOfWeek.AddDays(7d);
-            System.Diagnostics.Debug.WriteLine("end date:" + endDateOfWeek.Date.ToString());
 
-            var events = db.Events.Include(@a => @a.Activity).Include(@a => @a.ApplicationUser)
-                .Where(a => a.EventFrom >= startDateOfWeek)
-                .Where(a => a.EventFrom.Day < endDateOfWeek.Day)
-                .Where(a => a.IsActive == true);
-            
-            events = events.OrderBy(item => item.EventFrom);
+            ViewBag.StartendDates = new DateTime[] 
+            { startDateOfWeek, endDateOfWeek.AddDays(-1d) };
 
-            return View(events.ToList());
+            //get list of events that are from the current week and is active
+            var events = db.Events.Include(@a => @a.Activity)
+                                  .Include(@a => @a.ApplicationUser)
+                                  .Where(a => a.EventFrom >= startDateOfWeek)
+                                  .Where(a => a.EventFrom < endDateOfWeek)
+                                  .Where(a => a.IsActive == true)
+                                  .OrderBy(item => item.EventFrom)
+                                  .ToList();
+
+            return View(events);
         }
 
         // admin GET: Events
         [Authorize(Roles = "Admin")]
         public ActionResult Admin()
         {
-            var events = db.Events.Include(@a => @a.Activity).Include(@a => @a.ApplicationUser);
-
-            return View(events.ToList().OrderBy(item => item.EventFrom));
+            var events = db.Events.Include(@a => @a.Activity)
+                                  .Include(@a => @a.ApplicationUser)
+                                  .OrderBy(item => item.EventFrom)
+                                  .ToList();
+            return View(events);
         }
 
         // GET: Events/Details/5
@@ -62,8 +63,8 @@ namespace ZenithSociety.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Event @event = db.Events.Find(id);
-            Activity @activity = db.Activities.Find(@event.ActivityId);
-            ViewBag.ActDesc = @activity.ActivityDesc;
+            Activity activity = db.Activities.Find(@event.ActivityId);
+            @event.Activity.ActivityDesc = activity.ActivityDesc;
 
             if (@event == null)
             {
@@ -82,8 +83,6 @@ namespace ZenithSociety.Controllers
         }
 
         // POST: Events/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -91,9 +90,10 @@ namespace ZenithSociety.Controllers
         {
             if (ModelState.IsValid)
             {
-
+                // set creation date to current datetime
                 @event.CreationDate = DateTime.Now;
 
+                // set creator to logged in user
                 var store = new UserStore<ApplicationUser>(db);
                 var userManager = new UserManager<ApplicationUser>(store);
                 @event.ApplicationUser = userManager.FindByNameAsync(User.Identity.Name).Result;
@@ -117,6 +117,13 @@ namespace ZenithSociety.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Event @event = db.Events.Find(id);
+
+            ViewBag.Activities = new SelectList(
+                db.Activities
+                .OrderBy(a => a.ActivityDesc),
+                "ActivityId", "ActivityDesc", @event.ActivityId);
+
+
             if (@event == null)
             {
                 return HttpNotFound();
@@ -157,8 +164,9 @@ namespace ZenithSociety.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Event @event = db.Events.Find(id);
-            Activity @activity = db.Activities.Find(@event.ActivityId);
-            ViewBag.ActDesc = @activity.ActivityDesc;
+            Activity activity = db.Activities.Find(@event.ActivityId);
+            @event.Activity.ActivityDesc = activity.ActivityDesc;
+
             if (@event == null)
             {
                 return HttpNotFound();

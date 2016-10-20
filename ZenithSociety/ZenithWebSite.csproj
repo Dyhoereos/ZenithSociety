@@ -170,14 +170,13 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActivitiesController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Zenith\201610182104139_FirstMigration.cs" />
-    <Compile Include="Migrations\Zenith\201610182104139_FirstMigration.Designer.cs">
-      <DependentUpon>201610182104139_FirstMigration.cs</DependentUpon>
+    <Compile Include="Migrations\Zenith\201610192028532_FirstMigration.cs" />
+    <Compile Include="Migrations\Zenith\201610192028532_FirstMigration.Designer.cs">
+      <DependentUpon>201610192028532_FirstMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Zenith\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -223,7 +222,6 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <None Include="Views\Events\DisplayTemplates\DateTime.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -235,9 +233,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -285,8 +280,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\Zenith\201610182104139_FirstMigration.resx">
-      <DependentUpon>201610182104139_FirstMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\Zenith\201610192028532_FirstMigration.resx">
+      <DependentUpon>201610192028532_FirstMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

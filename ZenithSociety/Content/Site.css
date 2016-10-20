@@ -33,8 +33,8 @@ textarea {
     text-align: center;
 }
 
-#main-table tr:first-child td {
-    width: 25%;
+#main-table tbody tr td:first-child {
+    width: 23%;
 }
 
 

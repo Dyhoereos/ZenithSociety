@@ -3,9 +3,12 @@
 @{
     ViewBag.Title = "Index";
     var curDate = new DateTime();
+    var StartEndDate = ViewBag.StartendDates as DateTime[];
 }
 
 <h2>Events for the current week</h2>
+<h5>@StartEndDate[0].DayOfWeek @StartEndDate[0].ToLongDateString() to 
+    @StartEndDate[1].DayOfWeek @StartEndDate[1].ToLongDateString()</h5>
 
 <table class="table" id="main-table">
 

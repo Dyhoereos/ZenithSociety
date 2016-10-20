@@ -2,13 +2,12 @@
 
 @{
     ViewBag.Title = "Details";
-    var ActDesc = ViewBag.ActDesc as String;
 }
 
 <h2>Details for an event</h2>
 
 <div>
-    <h4>Event</h4>
+    
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -17,7 +16,7 @@
         </dt>
 
         <dd>
-            @ActDesc
+            @Html.DisplayFor(model => model.Activity.ActivityDesc)
         </dd>
 
         <dt>
@@ -64,5 +63,5 @@
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.EventId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Admin")
 </p>
