@@ -28,7 +28,7 @@ namespace ZenithSociety
                       "~/Scripts/bootstrap-datetimepicker.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/eventdatepicker").Include(
-                      "~/Scripts/event-create.js"));
+                      "~/Scripts/event-create.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",

@@ -174,9 +174,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Zenith\201610192028532_FirstMigration.cs" />
-    <Compile Include="Migrations\Zenith\201610192028532_FirstMigration.Designer.cs">
-      <DependentUpon>201610192028532_FirstMigration.cs</DependentUpon>
+    <Compile Include="Migrations\Zenith\201610202343369_FirstMigration.cs" />
+    <Compile Include="Migrations\Zenith\201610202343369_FirstMigration.Designer.cs">
+      <DependentUpon>201610202343369_FirstMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Zenith\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -185,11 +185,13 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap - original.css" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min - original.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Docs\ReadMe.txt" />
     <Content Include="favicon.ico" />
@@ -199,12 +201,15 @@
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\event-create.min.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="Properties\PublishProfiles\ZenithSocietyDCDL - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\ZenithSocietyDCDL - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -280,8 +285,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\Zenith\201610192028532_FirstMigration.resx">
-      <DependentUpon>201610192028532_FirstMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\Zenith\201610202343369_FirstMigration.resx">
+      <DependentUpon>201610202343369_FirstMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

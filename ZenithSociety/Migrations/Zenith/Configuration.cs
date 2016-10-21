@@ -20,47 +20,42 @@ namespace ZenithSociety.Migrations.Zenith
         protected override void Seed(ApplicationDbContext context)
         {
 
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
-
-            if (!roleManager.RoleExists("Admin"))
+            if (!context.Roles.Any(r => r.Name == "Admin"))
             {
-                var role = new IdentityRole();
-                role.Name = "Admin";
-                roleManager.Create(role);
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+                var role = new IdentityRole { Name = "Admin" };
 
-                var user = new ApplicationUser();
-                user.UserName = "a";
-                user.Email = "a@a.a";
-
-                string userPWD = "P@$$w0rd";
-
-                var chkUser = UserManager.Create(user, userPWD);
-
-                if (chkUser.Succeeded)
-                {
-                    UserManager.AddToRole(user.Id, "Admin");
-                }
+                manager.Create(role);
             }
 
-            if (!roleManager.RoleExists("Member"))
+            if (!context.Users.Any(u => u.UserName == "a"))
             {
-                var role = new IdentityRole();
-                role.Name = "Member";
-                roleManager.Create(role);
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+                var user = new ApplicationUser { UserName = "a" };
 
-                var user = new ApplicationUser();
-                user.UserName = "m";
-                user.Email = "m@m.m";
+                manager.Create(user, "P@$$w0rd");
+                manager.AddToRole(user.Id, "Admin");
+            }
 
-                string userPWD = "P@$$w0rd";
+            if (!context.Roles.Any(r => r.Name == "Member"))
+            {
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+                var role = new IdentityRole { Name = "Member" };
 
-                var chkUser = UserManager.Create(user, userPWD);
+                manager.Create(role);
+            }
 
-                if (chkUser.Succeeded)
-                {
-                    UserManager.AddToRole(user.Id, "Member");
-                }
+            if (!context.Users.Any(u => u.UserName == "m"))
+            {
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+                var user = new ApplicationUser { UserName = "m" };
+
+                manager.Create(user, "P@$$w0rd");
+                manager.AddToRole(user.Id, "Member");
             }
 
             context.Activities.AddOrUpdate(
@@ -76,7 +71,6 @@ namespace ZenithSociety.Migrations.Zenith
             context.SaveChanges();
         }
 
-        
         public static List<Activity> getActivities()
         {
             int counter = 0;
@@ -162,8 +156,8 @@ namespace ZenithSociety.Migrations.Zenith
             };
             return activities;
         }
-        
-        public static List<Event>  getEvents(ApplicationDbContext db)
+
+        public static List<Event> getEvents(ApplicationDbContext db)
         {
             int counter = 0;
             List<Event> events = new List<Event>()

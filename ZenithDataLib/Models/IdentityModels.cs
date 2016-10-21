@@ -11,8 +11,16 @@ namespace ZenithDataLib.Models
 {
     public class ApplicationUser : IdentityUser
     {
+        [Display(Name = "Creator")]
+        [MaxLength(20, ErrorMessage = "{0} must be less than {1} characters")]
         public override string UserName { get; set; }
+
+        [Display(Name = "Last Name")]
+        [MaxLength(20, ErrorMessage = "{0} must be less than {1} characters")]
         public string LastName { get; set; }
+
+        [Display(Name = "First Name")]
+        [MaxLength(20, ErrorMessage = "{0} must be less than {1} characters")]
         public string FirstName { get; set; }
         
         public virtual List<Event> Event { get; set; }

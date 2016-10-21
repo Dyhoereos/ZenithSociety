@@ -29,8 +29,9 @@ textarea {
 }
 
 #main-table th {
-    background-color: #c0fffb;
+    background-color: #18bc9c;
     text-align: center;
+    color: white;
 }
 
 #main-table tbody tr td:first-child {

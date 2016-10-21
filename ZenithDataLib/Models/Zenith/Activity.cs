@@ -13,6 +13,7 @@ namespace ZenithSociety.Models.Zenith
 
         [Display(Name="Activity")]
         [Required]
+        [MaxLength(70, ErrorMessage = "The {0} must be less than {1} characters long.")]
         public String ActivityDesc { get; set; }
 
         [Display(Name = "Date Created")]
