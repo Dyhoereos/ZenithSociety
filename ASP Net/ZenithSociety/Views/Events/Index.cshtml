@@ -1,0 +1,36 @@
+﻿@model IEnumerable<ZenithSociety.Models.Zenith.Event>
+
+@{
+    ViewBag.Title = "Index";
+    var curDate = new DateTime();
+    var StartEndDate = ViewBag.StartendDates as DateTime[];
+}
+
+<h2>Events for the current week</h2>
+<h5>@StartEndDate[0].ToLongDateString() to @StartEndDate[1].ToLongDateString()</h5>
+
+<table class="table" id="main-table">
+
+@foreach (var item in Model)
+{
+    if (item.EventFrom.Date != curDate)
+    {
+        <tr>
+            <th colspan="3">
+                @String.Format("{0:D}", item.EventFrom)
+            </th>
+        </tr>
+        curDate = item.EventFrom.Date;
+    }
+    <tr>
+        <td>
+            @String.Format("{0:t}", item.EventFrom) - 
+            @String.Format("{0:t}", item.EventTo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Activity.ActivityDesc)
+        </td>
+    </tr>
+}
+
+</table>
