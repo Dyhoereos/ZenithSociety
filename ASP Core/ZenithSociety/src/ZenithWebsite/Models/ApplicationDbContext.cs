@@ -9,7 +9,8 @@ namespace ZenithWebsite.Models
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext() {}
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+
         public DbSet<Event> Events { get; set; }
         public DbSet<Activity> Activities { get; set; }
     }

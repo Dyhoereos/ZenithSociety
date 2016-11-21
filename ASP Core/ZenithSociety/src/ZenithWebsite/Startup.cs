@@ -31,14 +31,14 @@ namespace ZenithWebsite
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddMvc();
-
             services.AddIdentity<ApplicationUser, IdentityRole>()
                .AddEntityFrameworkStores<ApplicationDbContext>()
                .AddDefaultTokenProviders();
 
             var connection = Configuration["Data:DefaultConnection:ConnectionString"];
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connection));
+
+            services.AddMvc();
 
             services.Configure<IdentityOptions>(options =>
             {
