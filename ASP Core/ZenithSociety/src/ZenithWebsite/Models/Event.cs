@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
-using ZenithWebsite.Model.CustomValidation;
+using ZenithWebsite.Models.CustomValidation;
 
-namespace ZenithWebsite.Model
+namespace ZenithWebsite.Models
 {
     public class Event
     {
@@ -24,8 +24,8 @@ namespace ZenithWebsite.Model
         [Display(Name = "Creator")]
         public string UserId { get; set; }
 
-        //[ForeignKey("UserId")]
-        //public virtual ApplicationUser ApplicationUser { get; set; }
+        [ForeignKey("UserId")]
+        public virtual ApplicationUser ApplicationUser { get; set; }
 
         [Display(Name = "Activity")]
         public int ActivityId { get; set; }

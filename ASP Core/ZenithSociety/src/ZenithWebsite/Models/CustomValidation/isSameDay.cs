@@ -4,13 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ZenithWebsite.Model.CustomValidation
+namespace ZenithWebsite.Models.CustomValidation
 {
-    public class IsDateAfter : ValidationAttribute
+    public class IsSameDay : ValidationAttribute
     {
         public string EventFromProperty { get; private set; }
 
-        public IsDateAfter(string EventFrom) : base("Event end time must be after event begin time.")
+        public IsSameDay(string EventFrom) : base("The event cannot last more than one day.")
         {
             this.EventFromProperty = EventFrom;
         }
@@ -18,11 +18,11 @@ namespace ZenithWebsite.Model.CustomValidation
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             //DateTime EventFrom = (DateTime)validationContext.ObjectType.GetProperty(this.EventFromProperty)
-                                                             //.GetValue(validationContext.ObjectInstance, null);
+            //                                                 .GetValue(validationContext.ObjectInstance, null);
             //DateTime EventTo = (DateTime)value;
             //if (value != null)
             //{
-            //    if (EventFrom > EventTo)
+            //    if (EventTo.Date != EventFrom.Date)
             //    {
             //        var errorMessage = FormatErrorMessage(validationContext.DisplayName);
             //        return new ValidationResult(errorMessage);
@@ -31,5 +31,4 @@ namespace ZenithWebsite.Model.CustomValidation
             return ValidationResult.Success;
         }
     }
-
 }
