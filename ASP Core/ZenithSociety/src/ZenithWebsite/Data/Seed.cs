@@ -5,13 +5,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ZenithWebsite.Models;
+using ZenithWebsite.Models.Zenith;
 
-namespace ZenithWebsite.Models
+namespace ZenithWebsite.Data
 {
-    public class Seed {
+    public class Seed
+    {
         public static void Initialize(ApplicationDbContext db, IServiceProvider services)
         {
-                setRolesAndUsers(db, services);
+            setRolesAndUsers(db, services);
 
 
 
@@ -29,22 +32,22 @@ namespace ZenithWebsite.Models
             //}
         }
 
-        public static void setRolesAndUsers(ApplicationDbContext context, IServiceProvider services)
+        public static async void setRolesAndUsers(ApplicationDbContext context, IServiceProvider services)
         {
             using (var manager = services.GetRequiredService<RoleManager<IdentityRole>>())
             {
-                
+
                 if (!context.Roles.Any(r => r.Name == "Admin"))
                 {
-                    var role = new IdentityRole { Name = "Admin" };                    
-                    manager.CreateAsync(role);
+                    var role = new IdentityRole { Name = "Admin" };
+                    await manager.CreateAsync(role);
                 }
 
                 if (!context.Roles.Any(r => r.Name == "Member"))
                 {
                     var role = new IdentityRole { Name = "Member" };
 
-                    manager.CreateAsync(role);
+                    await manager.CreateAsync(role);
                 }
             }
 
@@ -54,16 +57,16 @@ namespace ZenithWebsite.Models
                 {
                     var user = new ApplicationUser { UserName = "a" };
 
-                    manager.CreateAsync(user, "P@$$w0rd");
-                    manager.AddToRoleAsync(user, "Admin");
+                    await manager.CreateAsync(user, "P@$$w0rd");
+                    await manager.AddToRoleAsync(user, "Admin");
                 }
 
                 if (!context.Users.Any(u => u.UserName == "m"))
                 {
                     var user = new ApplicationUser { UserName = "m" };
 
-                    manager.CreateAsync(user, "P@$$w0rd");
-                    manager.AddToRoleAsync(user, "Member");
+                    await manager.CreateAsync(user, "P@$$w0rd");
+                    await manager.AddToRoleAsync(user, "Member");
                 }
             }
         }
