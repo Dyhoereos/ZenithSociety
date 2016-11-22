@@ -14,7 +14,7 @@ namespace ZenithWebsite.Data
     {
         public static void Initialize(ApplicationDbContext db, IServiceProvider services)
         {
-            setRolesAndUsers(db, services);
+            //setRolesAndUsers(db, services);
 
 
 
