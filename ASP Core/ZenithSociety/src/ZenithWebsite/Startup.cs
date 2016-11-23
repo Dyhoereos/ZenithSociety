@@ -39,12 +39,14 @@ namespace ZenithWebsite
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
-            //services.AddDbContext<ApplicationDbContext>(options =>
-            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            var connection = Configuration["Data:DefaultConnection:ConnectionString"];
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connection));
+            // Add framework services.
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+
+            //var connection = Configuration["Data:DefaultConnection:ConnectionString"];
+            //services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connection));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -78,7 +80,6 @@ namespace ZenithWebsite
 
             app.UseIdentity();
 
-            Seed.Initialize(context, services);
 
             // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
 
@@ -88,6 +89,8 @@ namespace ZenithWebsite
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            Seed.Initialize(context, services);
         }
     }
 }

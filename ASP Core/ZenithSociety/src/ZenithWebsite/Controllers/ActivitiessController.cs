@@ -33,21 +33,21 @@ namespace ZenithWebsite.Controllers
             return View(db.Activities.ToList());
         }
 
-        // GET: Activities/Details/5
-        [Authorize(Roles = "Admin")]
-        public IActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return StatusCode((int)HttpStatusCode.BadRequest);
-            }
-            Activity activity = db.Activities.Find(id);
-            if (activity == null)
-            {
-                return NotFound();
-            }
-            return View(activity);
-        }
+        //// GET: Activities/Details/5
+        //[Authorize(Roles = "Admin")]
+        //public IActionResult Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return StatusCode((int)HttpStatusCode.BadRequest);
+        //    }
+        //    //Activity activity = db.Activities.Find(id);
+        //    if (activity == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return View(activity);
+        //}
 
         // GET: Activities/Create
         [Authorize(Roles = "Admin")]
@@ -74,21 +74,21 @@ namespace ZenithWebsite.Controllers
             return View(activity);
         }
 
-        // GET: Activities/Edit/5
-        [Authorize(Roles = "Admin")]
-        public IActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return StatusCode((int)HttpStatusCode.BadRequest);
-            }
-            Activity activity = db.Activities.Find(id);
-            if (activity == null)
-            {
-                return StatusCode((int)HttpStatusCode.NotFound);
-            }
-            return View(activity);
-        }
+        //// GET: Activities/Edit/5
+        //[Authorize(Roles = "Admin")]
+        //public IActionResult Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return StatusCode((int)HttpStatusCode.BadRequest);
+        //    }
+        //    Activity activity = db.Activities.Find(id);
+        //    if (activity == null)
+        //    {
+        //        return StatusCode((int)HttpStatusCode.NotFound);
+        //    }
+        //    return View(activity);
+        //}
 
         // POST: Activities/Edit/5
         [HttpPost]
@@ -105,33 +105,33 @@ namespace ZenithWebsite.Controllers
             return View(activity);
         }
 
-        // GET: Activities/Delete/5
-        [Authorize(Roles = "Admin")]
-        public IActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return StatusCode((int)HttpStatusCode.BadRequest);
-            }
-            Activity activity = db.Activities.Find(id);
-            if (activity == null)
-            {
-                return StatusCode((int)HttpStatusCode.NotFound);
-            }
-            return View(activity);
-        }
+        //// GET: Activities/Delete/5
+        //[Authorize(Roles = "Admin")]
+        //public IActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return StatusCode((int)HttpStatusCode.BadRequest);
+        //    }
+        //    Activity activity = db.Activities.Find(id);
+        //    if (activity == null)
+        //    {
+        //        return StatusCode((int)HttpStatusCode.NotFound);
+        //    }
+        //    return View(activity);
+        //}
 
-        // POST: Activities/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        public IActionResult DeleteConfirmed(int id)
-        {
-            Activity activity = db.Activities.Find(id);
-            db.Activities.Remove(activity);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //// POST: Activities/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //[Authorize(Roles = "Admin")]
+        //public IActionResult DeleteConfirmed(int id)
+        //{
+        //    Activity activity = db.Activities.Find(id);
+        //    db.Activities.Remove(activity);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {

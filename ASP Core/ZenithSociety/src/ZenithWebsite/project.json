@@ -1,5 +1,5 @@
-﻿{
-  "userSecretsId": "aspnet-ZenithWebsite-e0eccaaf-704d-4566-9ee0-4e44c26fbca7",
+{
+  "userSecretsId": "aspnet-withlogin-be0d6e45-4ef0-44bb-843c-89489202c9a7",
 
   "dependencies": {
     "Microsoft.NETCore.App": {
@@ -19,7 +19,11 @@
     "Microsoft.AspNetCore.Server.IISIntegration": "1.0.0",
     "Microsoft.AspNetCore.Server.Kestrel": "1.0.1",
     "Microsoft.AspNetCore.StaticFiles": "1.0.0",
-    "Microsoft.EntityFrameworkCore.Sqlite": "1.1.0",
+    "Microsoft.EntityFrameworkCore.SqlServer": "1.0.1",
+    "Microsoft.EntityFrameworkCore.SqlServer.Design": {
+      "version": "1.0.1",
+      "type": "build"
+    },
     "Microsoft.EntityFrameworkCore.Tools": {
       "version": "1.0.0-preview2-final",
       "type": "build"
@@ -27,7 +31,7 @@
     "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0",
     "Microsoft.Extensions.Configuration.Json": "1.0.0",
     "Microsoft.Extensions.Configuration.UserSecrets": "1.0.0",
-    "Microsoft.Extensions.Logging": "1.1.0",
+    "Microsoft.Extensions.Logging": "1.0.0",
     "Microsoft.Extensions.Logging.Console": "1.0.0",
     "Microsoft.Extensions.Logging.Debug": "1.0.0",
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
@@ -39,7 +43,8 @@
     "Microsoft.VisualStudio.Web.CodeGenerators.Mvc": {
       "version": "1.0.0-preview2-final",
       "type": "build"
-    }
+    },
+    "Microsoft.EntityFrameworkCore.Sqlite": "1.0.1"
   },
 
   "tools": {

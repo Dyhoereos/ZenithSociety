@@ -5,21 +5,21 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using ZenithWebsite.Data;
 
-namespace ZenithWebsite.Data.Migrations
+namespace ZenithWebsite.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161121195350_UsersRoles")]
-    partial class UsersRoles
+    [Migration("20161123030608_fm")]
+    partial class fm
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.1.0-rtm-22752");
+                .HasAnnotation("ProductVersion", "1.0.1")
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<string>("Id");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -104,6 +104,8 @@ namespace ZenithWebsite.Data.Migrations
 
                     b.HasIndex("RoleId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("AspNetUserRoles");
                 });
 
@@ -124,8 +126,7 @@ namespace ZenithWebsite.Data.Migrations
 
             modelBuilder.Entity("ZenithWebsite.Models.ApplicationUser", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<string>("Id");
 
                     b.Property<int>("AccessFailedCount");
 
@@ -136,6 +137,10 @@ namespace ZenithWebsite.Data.Migrations
                         .HasAnnotation("MaxLength", 256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -177,9 +182,7 @@ namespace ZenithWebsite.Data.Migrations
                     b.Property<int>("ActivityId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ActivityDesc")
-                        .IsRequired()
-                        .HasAnnotation("MaxLength", 70);
+                    b.Property<string>("ActivityDesc");
 
                     b.Property<DateTime>("CreationDate");
 
@@ -195,6 +198,8 @@ namespace ZenithWebsite.Data.Migrations
 
                     b.Property<int>("ActivityId");
 
+                    b.Property<string>("ApplicationUserId");
+
                     b.Property<DateTime>("CreationDate");
 
                     b.Property<DateTime>("EventFrom");
@@ -209,7 +214,7 @@ namespace ZenithWebsite.Data.Migrations
 
                     b.HasIndex("ActivityId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("Events");
                 });
@@ -260,7 +265,7 @@ namespace ZenithWebsite.Data.Migrations
 
                     b.HasOne("ZenithWebsite.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("ApplicationUserId");
                 });
         }
     }

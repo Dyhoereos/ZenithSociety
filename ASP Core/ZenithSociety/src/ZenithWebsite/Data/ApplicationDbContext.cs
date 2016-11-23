@@ -13,10 +13,9 @@ namespace ZenithWebsite.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) { }
-        //public ApplicationDbContext() { }
-        
-            public DbSet<Event> Events { get; set; }
-            public DbSet<Activity> Activities { get; set; }
+
+        public DbSet<Event> Events { get; set; }
+        public DbSet<Activity> Activities { get; set; }
     
 
         protected override void OnModelCreating(ModelBuilder builder)
