@@ -7,16 +7,24 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ZenithWebsite.Data;
 using ZenithWebsite.Models.Zenith;
+using Microsoft.Extensions.Logging;
+using ZenithWebsite.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace ZenithWebsite.Controllers
 {
     public class EventsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ILogger<EventsController> _logger;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public EventsController(ApplicationDbContext context)
+        public EventsController(ApplicationDbContext context, ILogger<EventsController> logger, UserManager<ApplicationUser> userManager)
         {
-            _context = context;    
+            _context = context;
+            _logger = logger;
+            _userManager = userManager;
         }
 
         // GET: Events
@@ -63,6 +71,12 @@ namespace ZenithWebsite.Controllers
             }
 
             var @event = await _context.Events.SingleOrDefaultAsync(m => m.EventId == id);
+            Activity activity = await _context.Activities.SingleOrDefaultAsync(m => m.ActivityId == @event.ActivityId);
+            @event.Activity.ActivityDesc = activity.ActivityDesc;
+
+            ApplicationUser user = await _context.Users.SingleOrDefaultAsync(i => i.Id == @event.UserId);
+            @event.ApplicationUser.UserName = user.UserName;
+
             if (@event == null)
             {
                 return NotFound();
@@ -88,6 +102,12 @@ namespace ZenithWebsite.Controllers
         {
             if (ModelState.IsValid)
             {
+                // set creation date to current datetime
+                @event.CreationDate = DateTime.Now;
+
+                // set creator to logged in user
+                @event.ApplicationUser = await GetCurrentUserAsync();
+
                 _context.Add(@event);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -129,9 +149,11 @@ namespace ZenithWebsite.Controllers
 
             if (ModelState.IsValid)
             {
+                @event.CreationDate = (await _context.Events.SingleAsync(m => m.EventId == @event.EventId)).CreationDate;
+                @event.UserId = (await _context.Events.SingleAsync(m => m.EventId == @event.EventId)).UserId;
                 try
                 {
-                    _context.Update(@event);
+                    //_context.Update(@event);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -184,5 +206,7 @@ namespace ZenithWebsite.Controllers
         {
             return _context.Events.Any(e => e.EventId == id);
         }
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
     }
 }
