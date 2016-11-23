@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ZenithWebsite.Data;
 using ZenithWebsite.Models.Zenith;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ZenithWebsite.Controllers
 {
@@ -48,6 +49,7 @@ namespace ZenithWebsite.Controllers
         }
 
         // PUT: api/EventsApi/5
+        [Authorize(Roles = "Administrator")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEvent([FromRoute] int id, [FromBody] Event @event)
         {
@@ -83,6 +85,7 @@ namespace ZenithWebsite.Controllers
         }
 
         // POST: api/EventsApi
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         public async Task<IActionResult> PostEvent([FromBody] Event @event)
         {
@@ -112,6 +115,7 @@ namespace ZenithWebsite.Controllers
         }
 
         // DELETE: api/EventsApi/5
+        [Authorize(Roles = "Administrator")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEvent([FromRoute] int id)
         {
