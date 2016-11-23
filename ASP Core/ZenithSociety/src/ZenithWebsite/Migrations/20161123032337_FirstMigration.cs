@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace ZenithWebsite.Migrations
 {
-    public partial class fm : Migration
+    public partial class FirstMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -70,7 +70,7 @@ namespace ZenithWebsite.Migrations
                 {
                     ActivityId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ActivityDesc = table.Column<string>(nullable: true),
+                    ActivityDesc = table.Column<string>(maxLength: 70, nullable: false),
                     CreationDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
@@ -171,7 +171,6 @@ namespace ZenithWebsite.Migrations
                     EventId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ActivityId = table.Column<int>(nullable: false),
-                    ApplicationUserId = table.Column<string>(nullable: true),
                     CreationDate = table.Column<DateTime>(nullable: false),
                     EventFrom = table.Column<DateTime>(nullable: false),
                     EventTo = table.Column<DateTime>(nullable: false),
@@ -188,8 +187,8 @@ namespace ZenithWebsite.Migrations
                         principalColumn: "ActivityId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Events_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
+                        name: "FK_Events_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -242,9 +241,9 @@ namespace ZenithWebsite.Migrations
                 column: "ActivityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Events_ApplicationUserId",
+                name: "IX_Events_UserId",
                 table: "Events",
-                column: "ApplicationUserId");
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

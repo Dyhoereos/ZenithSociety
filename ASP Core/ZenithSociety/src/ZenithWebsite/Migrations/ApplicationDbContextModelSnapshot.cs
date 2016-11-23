@@ -181,7 +181,9 @@ namespace ZenithWebsite.Migrations
                     b.Property<int>("ActivityId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ActivityDesc");
+                    b.Property<string>("ActivityDesc")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 70);
 
                     b.Property<DateTime>("CreationDate");
 
@@ -197,8 +199,6 @@ namespace ZenithWebsite.Migrations
 
                     b.Property<int>("ActivityId");
 
-                    b.Property<string>("ApplicationUserId");
-
                     b.Property<DateTime>("CreationDate");
 
                     b.Property<DateTime>("EventFrom");
@@ -213,7 +213,7 @@ namespace ZenithWebsite.Migrations
 
                     b.HasIndex("ActivityId");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Events");
                 });
@@ -264,7 +264,7 @@ namespace ZenithWebsite.Migrations
 
                     b.HasOne("ZenithWebsite.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("UserId");
                 });
         }
     }
