@@ -149,11 +149,9 @@ namespace ZenithWebsite.Controllers
 
             if (ModelState.IsValid)
             {
-                @event.CreationDate = (await _context.Events.SingleAsync(m => m.EventId == @event.EventId)).CreationDate;
-                @event.UserId = (await _context.Events.SingleAsync(m => m.EventId == @event.EventId)).UserId;
                 try
                 {
-                    //_context.Update(@event);
+                    _context.Update(@event);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
