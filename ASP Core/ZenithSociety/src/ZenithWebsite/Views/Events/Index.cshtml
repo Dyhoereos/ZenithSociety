@@ -1,53 +1,36 @@
 @model IEnumerable<ZenithWebsite.Models.Zenith.Event>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Events for the current week";    
+    var curDate = new DateTime();
+    var StartEndDate = ViewData["StartendDates"] as DateTime[];
 }
 
-<h2>Index</h2>
+<h2>@ViewData["Title"]</h2>
+<h5>@StartEndDate[0].ToString("D") to @StartEndDate[1].ToString("D")</h5>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CreationDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EventFrom)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EventTo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsActive)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
+<table class="table" id="main-table">
+
+    @foreach (var item in Model)
+    {
+        if (item.EventFrom.Date != curDate)
+        {
+            <tr>
+                <th colspan="3">
+                    @String.Format("{0:D}", item.EventFrom)
+                </th>
+            </tr>
+            curDate = item.EventFrom.Date;
+        }
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.CreationDate)
+                @String.Format("{0:t}", item.EventFrom) -
+                @String.Format("{0:t}", item.EventTo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EventFrom)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventTo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsActive)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.EventId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.EventId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.EventId">Delete</a>
+                @Html.DisplayFor(modelItem => item.Activity.ActivityDesc)
             </td>
         </tr>
-}
-    </tbody>
+    }
+    
 </table>

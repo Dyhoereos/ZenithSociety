@@ -22,7 +22,35 @@ namespace ZenithWebsite.Controllers
         // GET: Events
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Events.Include(e => e.Activity).Include(e => e.ApplicationUser);
+            //determine first and last dates of week
+            DayOfWeek firstWeekDay = DayOfWeek.Monday;
+            DateTime startDateOfWeek = DateTime.Now.Date;
+            while (startDateOfWeek.DayOfWeek != firstWeekDay)
+            {
+                startDateOfWeek = startDateOfWeek.AddDays(-1d);
+            }
+            DateTime endDateOfWeek = startDateOfWeek.AddDays(7d);
+
+            ViewData["StartendDates"] = new DateTime[]
+            { startDateOfWeek, endDateOfWeek.AddDays(-1d) };
+
+            var applicationDbContext = _context.Events.Include(e => e.Activity)
+                                                      .Include(e => e.ApplicationUser)
+                                                      .Where(e => e.EventFrom >= startDateOfWeek)
+                                                      .Where(e => e.EventFrom < endDateOfWeek)
+                                                      .Where(e => e.IsActive == true)
+                                                      .OrderBy(item => item.EventFrom);
+
+            return View(await applicationDbContext.ToListAsync());
+        }
+
+        // GET: Events
+        public async Task<IActionResult> Admin()
+        {
+            var applicationDbContext = _context.Events.Include(e => e.Activity)
+                                                      .Include(e => e.ApplicationUser)
+                                                      .OrderBy(item => item.EventFrom);
+
             return View(await applicationDbContext.ToListAsync());
         }
 
