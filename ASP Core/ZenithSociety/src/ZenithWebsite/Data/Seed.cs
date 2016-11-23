@@ -12,42 +12,17 @@ namespace ZenithWebsite.Data
 {
     public class Seed
     {
-        public static void Initialize(ApplicationDbContext db, IServiceProvider services)
+        public static async void Initialize(ApplicationDbContext db, IServiceProvider services)
         {
-            setRolesAndUsers(db, services);
-            
+
+            await setRolesAndUsers(db, services);
+            addActivities(db);
+            addEvents(db);
 
 
-            //if (!db.Activities.Any())
-            //{
-            //    db.Activities.Add(new Activity
-            //    {
-            //        ActivityId = 1,
-            //        ActivityDesc = "Senior’s Golf Tournament",
-            //        CreationDate = Convert.ToDateTime("2016/09/10")
-            //    });
-
-            //    db.SaveChanges();
-            //}
-
-            //if (!db.Events.Any())
-            //{
-            //    db.Events.Add(new Event
-            //    {
-            //        EventId = 1,
-            //        EventFrom = Convert.ToDateTime("2016/09/27 8:30 am"),
-            //        EventTo = Convert.ToDateTime("2016/09/27 10:30 am"),
-            //        ApplicationUser = db.Users.First(a => a.UserName == "a"),
-            //        Activity = db.Activities.First(a => a.ActivityDesc == "Senior’s Golf Tournament"),
-            //        CreationDate = Convert.ToDateTime("2016/09/10"),
-            //        IsActive = true
-            //    });
-
-            //    db.SaveChanges();
-            //}
         }
 
-        public static async void setRolesAndUsers(ApplicationDbContext context, IServiceProvider services)
+        public static async Task setRolesAndUsers(ApplicationDbContext context, IServiceProvider services)
         {
             using (var manager = services.GetRequiredService<RoleManager<IdentityRole>>())
             {
@@ -95,8 +70,7 @@ namespace ZenithWebsite.Data
                     await manager.AddToRoleAsync(user, "Member");
                 }
             }
-            addActivities(context);
-            addEvents(context);
+            
         }
 
         public static void addActivities(ApplicationDbContext db)
