@@ -1,1 +1,15 @@
 # ZenithSociety
+
+After pulling ASP.NET Core updates, follow these steps if you run into db problems.
+
+1. wait for packages to restore
+2. build project
+3. open cmd prompt in \ASP Core\ZenithSociety\src\ZenithWebsite
+4. dotnet ef database update -> this will create ZenithSociety.mdf localdb in c:/users/<username>/. this is the default path, i havent changed it yet.
+5. if you want to see the tables in server explorer, go Tools > Connect to Database > Microsoft SQL Server Database File > Browse and select ZenithSociety.mdf > use Windows Authentication
+
+Current issues:
+Activity FK in Event table doesnt work yet
+login with username 
+login with default a/m accounts
+ui/functionality to change roles
