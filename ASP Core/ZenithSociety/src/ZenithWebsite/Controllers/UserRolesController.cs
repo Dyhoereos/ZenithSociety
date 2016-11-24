@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using ZenithWebsite.Models;
+using ZenithWebsite.Models.Zenith;
 
 namespace ZenithWebsite.Controllers
 {
@@ -33,26 +34,45 @@ namespace ZenithWebsite.Controllers
         // GET: UserRoles
         public async Task<IActionResult> Index()
         {
-            int numRoles = _context.UserRoles.Count();
-            _logger.LogCritical(numRoles.ToString());
             // id, list of users
-            var data = new  Dictionary<string, List<string>>();
-
+            var data = new Dictionary<string, List<string>>();
+            var idName = new Dictionary<string, string>();
             foreach (var role in _context.UserRoles)
             {
-                
+                List<string> users = new List<string>();
                 var curRole = await _roleManager.FindByIdAsync(role.RoleId);
-                
-                _logger.LogCritical(curRole.Name);
-                _logger.LogCritical(curRole.Users.Count().ToString());
 
+                if (!idName.ContainsKey(role.RoleId))
+                    idName.Add(role.RoleId, curRole.Name);
 
-                //foreach (var user in role.Users.ToList())
-                //{
-                //    _logger.LogCritical(role.Name.ToString());
-                //    _logger.LogCritical(user.UserId);
-                //}
+                // create list of users in this role
+                foreach(var u in curRole.Users)
+                {
+                    //_logger.LogCritical("adding user to list");
+                    //_logger.LogCritical(u.UserId);
+                    users.Add(u.UserId);
+
+                    if (!data.ContainsKey(u.UserId))
+                    {
+                        var curUser = await _userManager.FindByIdAsync(u.UserId);
+                        if (!idName.ContainsKey(u.UserId))
+                            idName.Add(u.UserId, curUser.UserName);
+                    }
+                }
+
+                // replace old list of users
+                if (data.ContainsKey(role.RoleId))
+                {
+                    data[role.RoleId] = users;
+                } else
+                {
+                    data.Add(role.RoleId, users);
+                }
             }
+
+            ViewData["userRoles"] = data;
+            ViewData["idName"] = idName;
+            
 
             return View();
         }

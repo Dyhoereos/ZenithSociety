@@ -1,7 +1,8 @@
 ﻿
 @{
     ViewData["Title"] = "Roles";
-    var roleList = ViewData["RolesList"] as Dictionary<String,String>;
+    var UserRoles = ViewData["UserRoles"] as Dictionary<String, List<String>>;
+    var idName = ViewData["idName"] as Dictionary<string, string>;
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -10,27 +11,26 @@
     <a asp-action="Create">Create New</a>
 </p>
 
-@*<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Role Name
-            </th>
-            <th></th>
-        </tr>
-    </thead>
+<table class="table">
     <tbody>
-        @foreach (var role in roleList)
+        @foreach (var role in UserRoles)
         {
             <tr>
                 <td>
-                    @role.Key.ToString()
-                </td>
-                <td>
-                    
-                    <a asp-action="Delete" asp-route-id="@role.Value.ToString()">Delete</a>
+                    Role: @idName[role.Key]
                 </td>
             </tr>
-        }
+            @foreach (var user in @role.Value)
+            {
+                <tr>
+                    <td>
+                        User: @idName[user]
+                    </td>
+                    <td>
+                        <a asp-action="Delete" asp-route-id="@role.Value.ToString()">Delete</a>
+                    </td>
+                </tr>
+            }
+         }
     </tbody>
-</table>*@
+</table>
