@@ -51,11 +51,13 @@ namespace ZenithWebsite.Controllers
         // POST: Roles/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(String role)
+        public async Task<IActionResult> Create(IFormCollection collection)
         {
-            if (!await _roleManager.RoleExistsAsync(role))
+            string name = HttpContext.Request.Form["Name"];
+            
+            if (!await _roleManager.RoleExistsAsync(name))
             {
-                var newRole = new IdentityRole { Name = role };
+                var newRole = new IdentityRole { Name = name };
                 await _roleManager.CreateAsync(newRole);
             }
             return RedirectToAction("Index");
@@ -85,30 +87,27 @@ namespace ZenithWebsite.Controllers
         //}
 
         // GET: Roles/Delete/5
-        public ActionResult Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
+            ViewData["Name"] = (await _roleManager.FindByIdAsync(id)).Name;
+            ViewData["Id"] = id;
             return View();
         }
 
         // POST: Roles/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(IFormCollection collection)
         {
+            string id = HttpContext.Request.Form["id"];
             var role = await _roleManager.FindByIdAsync(id);
-            if (role.Name == "Admin" || role.Name == "Member")
-                return View();
+            _logger.LogCritical(id);
+            if (role == null || role.Name == "Admin" || role.Name == "Member")
+                return RedirectToAction("Index");
 
-            try
-            {
-                await _roleManager.DeleteAsync(role);
-                return View();
-            }
-            catch
-            {
-                return View();
-            }
+            await _roleManager.DeleteAsync(role);
 
+            return RedirectToAction("Index");
         }
     }
 }
