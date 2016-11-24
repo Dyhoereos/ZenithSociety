@@ -116,6 +116,10 @@ namespace ZenithWebsite.Controllers
                     //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
                     //    $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
                     await _signInManager.SignInAsync(user, isPersistent: false);
+                    
+                    //Assign Member Role to user
+                    await _userManager.AddToRoleAsync(user, "Member");
+
                     _logger.LogInformation(3, "User created a new account with password.");
                     return RedirectToLocal(returnUrl);
                 }
