@@ -37,13 +37,13 @@ namespace ZenithWebsite.Controllers
         }
 
         // GET: Roles/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
+        //public ActionResult Details(int id)
+        //{
+        //    return View();
+        //}
 
         // GET: Roles/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View();
         }
@@ -51,45 +51,41 @@ namespace ZenithWebsite.Controllers
         // POST: Roles/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create(String role)
         {
-            try
+            if (!await _roleManager.RoleExistsAsync(role))
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                var newRole = new IdentityRole { Name = role };
+                await _roleManager.CreateAsync(newRole);
             }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Index");
         }
 
-        // GET: Roles/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
+        //// GET: Roles/Edit/5
+        //public ActionResult Edit(int id)
+        //{
+        //    return View();
+        //}
 
-        // POST: Roles/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
+        //// POST: Roles/Edit/5
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit(int id, IFormCollection collection)
+        //{
+        //    try
+        //    {
+        //        // TODO: Add update logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
 
         // GET: Roles/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id)
         {
             return View();
         }
@@ -97,18 +93,22 @@ namespace ZenithWebsite.Controllers
         // POST: Roles/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
+            var role = await _roleManager.FindByIdAsync(id);
+            if (role.Name == "Admin" || role.Name == "Member")
+                return View();
+
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                await _roleManager.DeleteAsync(role);
+                return View();
             }
             catch
             {
                 return View();
             }
+
         }
     }
 }
