@@ -36,120 +36,131 @@ namespace ZenithWebsite.Controllers
         {
             // id, list of users
             var data = new Dictionary<string, List<string>>();
+            // dictionary of user/role id to name
             var idName = new Dictionary<string, string>();
+
+            var roleList = _roleManager.Roles;
+            foreach (var role in roleList)
+            {
+                idName.Add(role.Id, role.Name);
+                data.Add(role.Id, new List<string>());
+            }
+
             foreach (var role in _context.UserRoles)
             {
-                List<string> users = new List<string>();
+                var users = new List<string>();
                 var curRole = await _roleManager.FindByIdAsync(role.RoleId);
-
-                if (!idName.ContainsKey(role.RoleId))
-                    idName.Add(role.RoleId, curRole.Name);
-
-                // create list of users in this role
-                foreach(var u in curRole.Users)
+                
+                // Users are not populated all at once, so loop through re-add to data dictionary
+                foreach(var user in curRole.Users)
                 {
-                    //_logger.LogCritical("adding user to list");
-                    //_logger.LogCritical(u.UserId);
-                    users.Add(u.UserId);
+                    users.Add(user.UserId);
 
-                    if (!data.ContainsKey(u.UserId))
+                    // add to name/id dictionary
+                    var curUser = await _userManager.FindByIdAsync(user.UserId);
+                    if (!idName.ContainsKey(curUser.Id))
                     {
-                        var curUser = await _userManager.FindByIdAsync(u.UserId);
-                        if (!idName.ContainsKey(u.UserId))
-                            idName.Add(u.UserId, curUser.UserName);
+                        idName.Add(curUser.Id, curUser.UserName);
                     }
                 }
 
-                // replace old list of users
-                if (data.ContainsKey(role.RoleId))
-                {
-                    data[role.RoleId] = users;
-                } else
-                {
-                    data.Add(role.RoleId, users);
-                }
+                data[curRole.Id] = users;
             }
 
             ViewData["userRoles"] = data;
             ViewData["idName"] = idName;
-            
 
-            return View();
-        }
-
-        // GET: UserRoles/Details/5
-        public ActionResult Details(int id)
-        {
             return View();
         }
 
         // GET: UserRoles/Create
-        public ActionResult Create()
+        public async Task<IActionResult> Create(string id)
         {
+            IdentityUserRole<string> irole = null;
+
+            foreach (var userRole in _context.UserRoles)
+            {
+                if (userRole.RoleId == id)
+                {
+                    irole = userRole;
+                }
+            }
+
+            var role = await _roleManager.FindByIdAsync(irole.RoleId);
+
+            var userList = _context.UserRoles;
+
+            var usersInRole = new HashSet<IdentityUserRole<string>>(role.Users);
+
+            _logger.LogCritical(role.Users.Count().ToString());
+
+            var usersNotInRole = new Dictionary<string, string>();
+
+            foreach (var user in userList)
+            {
+                if (usersInRole.Add(user))
+                {
+                    var curUser = await _userManager.FindByIdAsync(user.UserId);
+                    usersNotInRole.Add(user.UserId, curUser.UserName);
+                }
+            }
+
+            ViewData["Users"] = usersNotInRole;
+            ViewData["Role"] = id;
+
             return View();
         }
 
         // POST: UserRoles/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create(IFormCollection collection)
         {
-            try
-            {
-                // TODO: Add insert logic here
+            string roleId = HttpContext.Request.Form["role"];
+            string userId = HttpContext.Request.Form["user"];
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+            var user = await _userManager.FindByIdAsync(userId);
+            var role = await _roleManager.FindByIdAsync(roleId);
 
-        // GET: UserRoles/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
+            await _userManager.AddToRoleAsync(user, role.Name);
 
-        // POST: UserRoles/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
+            return RedirectToAction("Index");
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
 
         // GET: UserRoles/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<IActionResult> Delete(string id)
         {
+            string[] roleUser = id.Split('=');
+            _logger.LogCritical(id);
+
+            var role = await _roleManager.FindByIdAsync(roleUser[0]);
+            var user = await _userManager.FindByIdAsync(roleUser[1]);
+
+            ViewData["Role"] = role.Name;
+            ViewData["User"] = user.UserName;
+
             return View();
         }
 
         // POST: UserRoles/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> Delete(string id, IFormCollection collection)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            string roleId = HttpContext.Request.Form["role"];
+            string userId = HttpContext.Request.Form["user"];
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            var role = await _roleManager.FindByIdAsync(roleId);
+            var user = await _userManager.FindByIdAsync(userId);
+
+            _logger.LogCritical("role is " + role.Name);
+            _logger.LogCritical("user is " + user.UserName);
+
+            await _userManager.RemoveFromRoleAsync(user, role.Name);
+
+            return View();
+         
         }
     }
 }

@@ -1,12 +1,12 @@
 @{
-    ViewData["Title"] = "Delete Role";
-    var roleName = ViewData["Name"] as string;
-    var id = ViewData["Id"] as string;
+    ViewData["Title"] = "Remove user from role";
+    var role = ViewData["Role"] as string;
+    var user = ViewData["User"] as string;
 }
 
 <h2>@ViewData["Title"]</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Are you sure you want to remove this user from this role?</h3>
 <div>
     <hr />
     <dl class="dl-horizontal">
@@ -14,12 +14,20 @@
             Role:     
         </dt>
         <dd>
-            @roleName
+            @role
+        </dd>
+
+        <dt>
+            User:
+        </dt>
+        <dd>
+            @user
         </dd>
     </dl>
     
-    <form asp-action="DeleteConfirmed">
-        <input type="hidden" name="id" value="@id" />
+    <form asp-action="Delete">
+        <input type="hidden" name="role" value="@role" />
+        <input type="hidden" name="user" value="@user" />
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
             <a asp-action="Index">Back to List</a>

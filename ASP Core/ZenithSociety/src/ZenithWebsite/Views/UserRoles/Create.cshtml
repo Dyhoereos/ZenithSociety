@@ -1,27 +1,42 @@
 @{
-    ViewData["Title"] = "Create Role";
+    ViewData["Title"] = "Add User to Role";
+    //var users = ViewData["Users"] as Dictionary<string, string>;
+    var users = ViewData["Users"] as Dictionary<string, string>;
+    var role = ViewData["Role"] as string;
 }
 
-<h2>Create</h2>
-
+<h2>@ViewData["Title"]</h2>
 <form asp-action="Create">
-    <div class="form-horizontal">
-        <h4>Role</h4>
-        <hr />
-        @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
-        <div class="form-group">
-            <label for="Name" class="col-md-2 control-label">New role name: </label>
-            <div class="col-md-10">
-                <input name="Name" class="form-control" />
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
+    <input type="hidden" name="role" value="@role" />
+<hr />
+    <table>
+        @foreach (var user in users)
+        {
+            <tr>
+                <td>
+                    @user.Value
+                </td>
+                <td>
+                    @*<a asp-action="Delete" asp-route-id="@role.Value.ToString()">Delete</a>*@
+                    <input type="hidden" name="user" value="@user.Key" />
+                    <input type="submit" value="Add" class="btn btn-default" />
+                </td>
+            </tr>
+            
+            @*<div class="form-actions no-color">
+                <input type="submit" value="" class="btn btn-default" /> |
+                <a asp-action="Index">Back to List</a>
+            </div>*@
+        }
+    </table>
 </form>
+
+
+
+        
+             
+        
+
 
 <div>
     <a asp-action="Index">Back to List</a>
