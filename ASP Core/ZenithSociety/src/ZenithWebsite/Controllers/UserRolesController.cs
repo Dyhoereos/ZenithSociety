@@ -146,21 +146,20 @@ namespace ZenithWebsite.Controllers
         // POST: UserRoles/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(string id, IFormCollection collection)
+        public async Task<IActionResult> Delete(IFormCollection collection)
         {
             string roleId = HttpContext.Request.Form["role"];
             string userId = HttpContext.Request.Form["user"];
 
-            var role = await _roleManager.FindByIdAsync(roleId);
-            var user = await _userManager.FindByIdAsync(userId);
+            var role = await _roleManager.FindByNameAsync(roleId);
+            
+            ApplicationUser user = await _userManager.FindByNameAsync(userId);
 
-            _logger.LogCritical("role is " + role.Name);
-            _logger.LogCritical("user is " + user.UserName);
 
             await _userManager.RemoveFromRoleAsync(user, role.Name);
 
-            return View();
-         
+            return RedirectToAction("Index");
+
         }
     }
 }
