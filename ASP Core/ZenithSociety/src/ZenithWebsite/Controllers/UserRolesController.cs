@@ -51,7 +51,7 @@ namespace ZenithWebsite.Controllers
                 var users = new List<string>();
                 var curRole = await _roleManager.FindByIdAsync(role.RoleId);
                 
-                // Users are not populated all at once, so loop through re-add to data dictionary
+                // Users are not populated all at once, so loop through to get new users
                 foreach(var user in curRole.Users)
                 {
                     users.Add(user.UserId);
@@ -64,6 +64,7 @@ namespace ZenithWebsite.Controllers
                     }
                 }
 
+                // re-add to data dictionary
                 data[curRole.Id] = users;
             }
 
@@ -73,59 +74,37 @@ namespace ZenithWebsite.Controllers
             return View();
         }
 
-        // GET: UserRoles/Create
-        public async Task<IActionResult> Create(string id)
+        // GET: UserRoles/AddUser
+        public async Task<IActionResult> AddUser(string id)
         {
-            IdentityUserRole<string> irole = null;
+            var userDict = new Dictionary<string, string>();
 
-            foreach (var userRole in _context.UserRoles)
+            var users = _userManager.Users;
+            foreach (var user in users)
             {
-                if (userRole.RoleId == id)
-                {
-                    irole = userRole;
-                }
+                userDict.Add(user.Id, user.UserName);
             }
 
-            var role = await _roleManager.FindByIdAsync(irole.RoleId);
-
-            var userList = _context.UserRoles;
-
-            var usersInRole = new HashSet<IdentityUserRole<string>>(role.Users);
-
-            _logger.LogCritical(role.Users.Count().ToString());
-
-            var usersNotInRole = new Dictionary<string, string>();
-
-            foreach (var user in userList)
-            {
-                if (usersInRole.Add(user))
-                {
-                    var curUser = await _userManager.FindByIdAsync(user.UserId);
-                    usersNotInRole.Add(user.UserId, curUser.UserName);
-                }
-            }
-
-            ViewData["Users"] = usersNotInRole;
             ViewData["Role"] = id;
+            ViewData["Users"] = userDict;
 
             return View();
         }
 
-        // POST: UserRoles/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IFormCollection collection)
+        // POST: UserRoles/AddUser
+        public async Task<IActionResult> AddConfirmed(string id)
         {
-            string roleId = HttpContext.Request.Form["role"];
-            string userId = HttpContext.Request.Form["user"];
+            string[] roleUser = id.Split('=');
+            
+            var user = await _userManager.FindByIdAsync(roleUser[0]);
+            var role = await _roleManager.FindByIdAsync(roleUser[1]);            
 
-            var user = await _userManager.FindByIdAsync(userId);
-            var role = await _roleManager.FindByIdAsync(roleId);
+            if (user.UserName == "a" && role.Name == "admin")
+                return RedirectToAction("Index");
 
-            await _userManager.AddToRoleAsync(user, role.Name);
+            IdentityResult x = await _userManager.AddToRoleAsync(user, role.Name);
 
             return RedirectToAction("Index");
-
         }
 
         // GET: UserRoles/Delete/5
