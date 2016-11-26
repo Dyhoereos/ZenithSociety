@@ -19,5 +19,5 @@ export class Event {
 	 	this.activity = obj && obj.activity || null;
 	 	this.creationDate = obj && obj.creationDate || null;
 	 	this.isActive = obj && obj.isActive || null;
-	 } 
+	 }
 }

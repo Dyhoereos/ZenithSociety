@@ -1,29 +1,20 @@
-<h2>{{title}}</h2>
-<table *ngIf="results" border="1">
-  <thead>
-    <tr>
-      <th>Event ID</th>
-      <th>Event From</th>
-      <th>Event To</th>
-      <th>User ID</th>
-      <th>Application User</th>
-      <th>Activity ID</th>
-      <th>Activity</th>
-      <th>Creation Date</th>
-      <th>Is Active</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let p of results; let i=index">
-      <td>{{p.eventId}}</td>
-      <td>{{p.eventFrom}}</td>
-      <td>{{p.eventTo}}</td>
-      <td>{{p.userId}}</td>
-      <td>{{p.applicationUser}}</td>
-      <td>{{p.activityId}}</td>
-      <td>{{p.activity}}</td>
-      <td>{{p.creationDate}}</td>
-      <td>{{p.isActive}}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="container">
+  <table class="table" *ngIf="results" border="1">
+    <thead>
+      <tr>
+        <th>Event From</th>
+        <th>Event To</th>
+        <th>Activity ID</th>
+        <th>Activity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of results; let i=index">
+        <td>{{p.eventFrom}}</td>
+        <td>{{p.eventTo}}</td>
+        <td>{{p.activityId}}</td>
+        <td>{{p.activity}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
