@@ -12,6 +12,9 @@ using Microsoft.Extensions.Logging;
 using ZenithWebsite.Data;
 using ZenithWebsite.Models;
 using ZenithWebsite.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Cors.Internal;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using OpenIddict;
 using CryptoHelper;
 
@@ -78,6 +81,16 @@ namespace ZenithWebsite
                 .AddEphemeralSigningKey();
 
             services.AddMvc();
+            var corsBuilder = new CorsPolicyBuilder();
+            corsBuilder.AllowAnyHeader();
+            corsBuilder.AllowAnyMethod();
+            corsBuilder.AllowAnyOrigin();
+            corsBuilder.AllowCredentials();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", corsBuilder.Build());
+            });
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
@@ -87,6 +100,8 @@ namespace ZenithWebsite
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider services, ApplicationDbContext context)
         {
+            app.UseCors("AllowAll");
+
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
@@ -101,8 +116,8 @@ namespace ZenithWebsite
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseStaticFiles();
 
+            app.UseStaticFiles();
             app.UseIdentity();
 
 
