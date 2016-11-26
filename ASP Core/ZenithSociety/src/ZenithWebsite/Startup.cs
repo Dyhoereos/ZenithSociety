@@ -12,6 +12,8 @@ using Microsoft.Extensions.Logging;
 using ZenithWebsite.Data;
 using ZenithWebsite.Models;
 using ZenithWebsite.Services;
+using OpenIddict;
+using CryptoHelper;
 
 namespace ZenithWebsite
 {
@@ -52,6 +54,29 @@ namespace ZenithWebsite
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            // Register the OpenIddict services, including the default Entity Framework stores.
+            services.AddOpenIddict<ApplicationDbContext>()
+                // Register the ASP.NET Core MVC binder used by OpenIddict.
+                // Note: if you don't call this method, you won't be able to
+                // bind OpenIdConnectRequest or OpenIdConnectResponse parameters.
+                .AddMvcBinders()
+
+                // Enable the token endpoint (required to use the password flow).
+                .EnableAuthorizationEndpoint("/connect/authorize")
+                .EnableTokenEndpoint("/connect/token")
+
+                // Allow client applications to use the grant_type=password flow.
+                .AllowPasswordFlow()
+                .AllowAuthorizationCodeFlow()
+
+                // During development, you can disable the HTTPS requirement.
+                .DisableHttpsRequirement()
+
+                // Register a new ephemeral key, that is discarded when the application
+                // shuts down. Tokens signed using this key are automatically invalidated.
+                // This method should only be used during development.
+                .AddEphemeralSigningKey();
+
             services.AddMvc();
 
             // Add application services.
@@ -83,12 +108,46 @@ namespace ZenithWebsite
 
             // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
 
+            app.UseOAuthValidation();
+
+            app.UseOpenIddict();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            using (var context1 = new ApplicationDbContext(
+                app.ApplicationServices.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
+            {
+                context1.Database.EnsureCreated();
+
+                if (!context1.Applications.Any())
+                {
+                    context1.Applications.Add(new OpenIddictApplication
+                    {
+                        // Assign a unique identifier to your client app:
+                        Id = "48BF1BC3-CE01-4787-BBF2-0426EAD21342",
+
+                        // Assign a display named used in the consent form page:
+                        DisplayName = "MVC Core client application",
+
+                        // Register the appropriate redirect_uri and post_logout_redirect_uri:
+                        RedirectUri = "http://localhost:53507/signin-oidc",
+                        LogoutRedirectUri = "http://localhost:53507/",
+
+                        ClientSecret = Crypto.HashPassword("secret_secret_secret"),
+
+                        // Note: use "public" for JS/mobile/desktop applications
+                        // and "confidential" for server-side applications.
+                        Type = OpenIddictConstants.ClientTypes.Confidential
+                    });
+
+                    context1.SaveChanges();
+                }
+            }
 
             Seed.Initialize(context, services);
         }

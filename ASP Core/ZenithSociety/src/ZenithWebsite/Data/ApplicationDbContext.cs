@@ -6,12 +6,13 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ZenithWebsite.Models;
 using ZenithWebsite.Models.Zenith;
+using OpenIddict;
 
 namespace ZenithWebsite.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : OpenIddictDbContext<ApplicationUser>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public ApplicationDbContext(DbContextOptions options)
             : base(options) { }
 
         public DbSet<Event> Events { get; set; }
