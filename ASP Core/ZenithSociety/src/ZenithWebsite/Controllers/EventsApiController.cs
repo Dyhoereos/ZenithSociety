@@ -23,6 +23,7 @@ namespace ZenithWebsite.Controllers
         }
 
         // GET: api/EventsApi
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IEnumerable<Event> GetEvents()
         {
@@ -49,7 +50,7 @@ namespace ZenithWebsite.Controllers
         }
 
         // PUT: api/EventsApi/5
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEvent([FromRoute] int id, [FromBody] Event @event)
         {
@@ -85,7 +86,7 @@ namespace ZenithWebsite.Controllers
         }
 
         // POST: api/EventsApi
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> PostEvent([FromBody] Event @event)
         {
@@ -115,7 +116,7 @@ namespace ZenithWebsite.Controllers
         }
 
         // DELETE: api/EventsApi/5
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEvent([FromRoute] int id)
         {
