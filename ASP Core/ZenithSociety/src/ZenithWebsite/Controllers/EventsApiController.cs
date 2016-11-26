@@ -23,7 +23,6 @@ namespace ZenithWebsite.Controllers
         }
 
         // GET: api/EventsApi
-        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IEnumerable<Event> GetEvents()
         {
