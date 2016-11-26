@@ -17,7 +17,7 @@ export class EventComponent implements OnInit {
   constructor(private eventService: EventService, private activityService: ActivityService) { }
 
   ngOnInit() {
-    this.getAllEvents().
+    this.getAllEvents();
     this.getAllActivities();
     this.assignActivityToEvent();
   }
