@@ -8,6 +8,7 @@ import { EventComponent } from './event/event.component';
 import { LoginComponent } from './login/login.component';
 import { AuthenticationService } from './authentication.service'
 import { LoggedIn } from './logged-in.guard'
+import { AlertModule } from 'ng2-bootstrap/ng2-bootstrap';
 
 @NgModule({
   declarations: [
@@ -16,10 +17,11 @@ import { LoggedIn } from './logged-in.guard'
     LoginComponent
   ],
   imports: [
+    AlertModule,
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot([  
+    RouterModule.forRoot([
       { path: 'login', component: LoginComponent },
       // { path: 'profile', component: ProfileComponent, canActivate: [LoggedIn] }
       { path: 'event', component: EventComponent }

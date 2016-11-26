@@ -9,5 +9,5 @@ import { EventComponent } from './event/event.component'
   providers: [EventService]
 })
 export class AppComponent {
-  title = 'app works!';
+  title = 'Zenith Society';
 }
