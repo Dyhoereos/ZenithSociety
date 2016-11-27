@@ -30,10 +30,13 @@ namespace ZenithWebsite.Controllers
 
             foreach (var e in _context.Events)
             {
-                json += "{\"EventFrom\":" + "\"" + e.EventFrom + "\",";
-                json += "\"EventTo\":" + "\"" + e.EventTo + "\",";
-                var activity = _context.Activities.First(a => a.ActivityId == e.ActivityId);
-                json += "\"Activity\":" + "\"" + activity.ActivityDesc + "\"},";
+                if (e.IsActive)
+                {
+                    json += "{\"EventFrom\":" + "\"" + e.EventFrom + "\",";
+                    json += "\"EventTo\":" + "\"" + e.EventTo + "\",";
+                    var activity = _context.Activities.First(a => a.ActivityId == e.ActivityId);
+                    json += "\"Activity\":" + "\"" + activity.ActivityDesc + "\"},";
+                }
             }
             json = json.Remove(json.Length - 1);
             json += "]";
