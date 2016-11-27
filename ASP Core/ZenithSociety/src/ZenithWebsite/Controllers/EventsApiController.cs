@@ -26,7 +26,6 @@ namespace ZenithWebsite.Controllers
         [HttpGet]
         public string GetEvents()
         {
-            string json2 = JsonConvert.SerializeObject(_context.Events);
             string json = "[";
 
             foreach (var e in _context.Events)
