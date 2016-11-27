@@ -13,21 +13,26 @@ import {AuthenticationService} from '../authentication.service'
 export class EventComponent implements OnInit {
   loggedIn = false;
   currentDate: Date = new Date();
+  dayDifference = 0;
 
   @ViewChildren(WeekComponent)
     viewChildren: QueryList<WeekComponent>;
 
-  constructor(private eventService: EventService, private user: AuthenticationService) {}
+  constructor(private eventService: EventService, private user: AuthenticationService) { }
 
   ngOnInit() {
     this.loggedIn = this.user.isLoggedIn();
     console.log(this.currentDate);
-    // this.viewChildren.toArray().forEach((child) => child.currentDate = this.currentDate);
   }
 
   loadPrevWeek(){
     console.log("previous clicked");
-    this.currentDate.setDate(this.currentDate.getDate() - 7);
+    this.dayDifference -= 7;
+    console.log(this.dayDifference);
+    this.currentDate = new Date();
+    this.currentDate.setDate(new Date().getDate() + this.dayDifference);
+    console.log('current date: ' + this.currentDate);
+    this.viewChildren.toArray().forEach((child) => child.parentSet = true);
     this.viewChildren.toArray().forEach((child) => child.setTime(this.currentDate));
     // this.viewChildren.toArray().forEach((child) => child.previous());
     this.viewChildren.toArray().forEach((child) => child.getAllEvents());
@@ -36,7 +41,12 @@ export class EventComponent implements OnInit {
 
   loadNextWeek(){
     console.log("previous clicked");
-    this.currentDate.setDate(this.currentDate.getDate() + 7);
+    this.dayDifference += 7;
+    console.log(this.dayDifference);
+    this.currentDate = new Date();
+    this.currentDate.setDate(new Date().getDate() + this.dayDifference);
+    console.log('current date: ' + this.currentDate);
+    this.viewChildren.toArray().forEach((child) => child.parentSet = true);
     this.viewChildren.toArray().forEach((child) => child.setTime(this.currentDate));
 
     // this.viewChildren.toArray().forEach((child) => child.next());

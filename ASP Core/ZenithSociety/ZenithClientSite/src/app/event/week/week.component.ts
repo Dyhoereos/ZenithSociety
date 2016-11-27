@@ -15,11 +15,13 @@ export class WeekComponent implements OnInit {
   results: Array<Event> = [];
   currentWeekResults: Array<Event>
   title: "Events for the week of";
-  currentDate: Date = new Date();
+  currentDate: Date;
+  parentSet = false;
 
   constructor(private eventService: EventService) {}
   
   ngOnInit() {
+    if (!this.parentSet) this.currentDate = new Date();
   	this.getAllEvents();
   }
 
@@ -32,13 +34,16 @@ export class WeekComponent implements OnInit {
     //       data => { this.results = data; },
     //       error => console.log(error)
     //       );
-
+    this.results = [];
     this.eventService.getAll()
       .then(data => this.parseEvents(data));  
   }
 
   parseEvents(eventList){
     var typedlist: [Event] = eventList;
+
+    console.log("in child");
+    console.log(this.currentDate);
 
     var curr = this.currentDate;
     curr.setHours(0,0,0,0);
@@ -56,7 +61,6 @@ export class WeekComponent implements OnInit {
       var toDate = new Date(event.EventTo);
       if (fromDate >= firstday && toDate < lastday){
         this.results.push(event);
-        console.log(toDate);
       }
     }
     
