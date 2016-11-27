@@ -24,10 +24,26 @@ namespace ZenithWebsite.Controllers
 
         // GET: api/EventsApi
         [HttpGet]
-        public IEnumerable<Event> GetEvents()
+        public string GetEvents()
         {
-            return _context.Events;
+            string json2 = JsonConvert.SerializeObject(_context.Events);
+            string json = "[";
+
+            foreach (var e in _context.Events)
+            {
+                json += "{\"EventFrom\":" + "\"" + e.EventFrom + "\",";
+                json += "\"EventTo\":" + "\"" + e.EventTo + "\",";
+                var activity = _context.Activities.First(a => a.ActivityId == e.ActivityId);
+                json += "\"Activity\":" + "\"" + activity.ActivityDesc + "\"},";
+            }
+            json = json.Remove(json.Length - 1);
+            json += "]";
+            return json;
         }
+        //public IEnumerable<Event> GetEvents()
+        //{
+        //    return _context.Events;
+        //}
 
         // GET: api/EventsApi/5
         [HttpGet("{id}")]

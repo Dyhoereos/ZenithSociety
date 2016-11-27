@@ -1,4 +1,3 @@
-
 <h2>{{title}}</h2>
 <div class="container">
   <table class="table" *ngIf="results" border="1">
@@ -6,16 +5,16 @@
       <tr>
         <th>Event From</th>
         <th>Event To</th>
-        <th>Activity ID</th>
+        <!-- <th>Activity ID</th> -->
         <th>Activity</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let p of results; let i=index">
-        <td>{{p.eventFrom}}</td>
-        <td>{{p.eventTo}}</td>
-        <td>{{p.activityId}}</td>
-        <td>{{p.activity}}</td>
+        <td>{{p.EventFrom}}</td>
+        <td>{{p.EventTo}}</td>
+        <!-- <td>{{p.activityId}}</td> -->
+        <td>{{p.Activity}}</td>
       </tr>
     </tbody>
   </table>
