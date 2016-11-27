@@ -16,8 +16,8 @@ export class AuthenticationService {
     console.log(creds);
     return this.http
       .post(
-        'http://localhost:52377/connect/token', 
-        creds, 
+        'http://localhost:5000/connect/token', 
+        creds,
         { headers }
       )
       // .map(res => {
@@ -35,7 +35,7 @@ export class AuthenticationService {
         return false;
       });
   }
-  
+
   logout() {
     localStorage.removeItem('auth_token');
     this.loggedIn = false;

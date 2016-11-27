@@ -10,6 +10,8 @@ import { AuthenticationService } from './authentication.service'
 import { LoggedIn } from './logged-in.guard'
 import { AlertModule } from 'ng2-bootstrap/ng2-bootstrap';
 import { WeekComponent } from './event/week/week.component';
+import { LogoutComponent } from './logout/logout.component';
+
 
 @NgModule({
   declarations: [
@@ -17,6 +19,7 @@ import { WeekComponent } from './event/week/week.component';
     EventComponent,
     LoginComponent,
     WeekComponent,
+    LogoutComponent
   ],
   imports: [
     AlertModule,
@@ -25,9 +28,8 @@ import { WeekComponent } from './event/week/week.component';
     HttpModule,
     RouterModule.forRoot([
       { path: 'login', component: LoginComponent },
-      { path: 'logout', component: LoginComponent },
-      // { path: 'profile', component: EventComponent, canActivate: [LoggedIn] }
-      { path: 'event', component: EventComponent }
+      { path: 'event', component: EventComponent },
+      { path: 'logout', component: LogoutComponent }
       ])
   ],
   providers: [AuthenticationService, LoggedIn],
