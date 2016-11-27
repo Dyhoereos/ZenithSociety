@@ -48,21 +48,3 @@ textarea {
     display: none
   }
 }
-
-#main-table, #main-table td, #main-table th {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-
-#main-table th {
-    background-color: #18bc9c;
-    text-align: center;
-    color: white;
-}
-
-#main-table tbody tr td:first-child {
-    width: 23%;
-}
-
-
-

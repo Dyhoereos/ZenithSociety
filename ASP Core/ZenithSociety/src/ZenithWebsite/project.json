@@ -47,7 +47,12 @@
     "Microsoft.EntityFrameworkCore.Sqlite": "1.0.1",
     "AspNet.Security.OAuth.Validation": "1.0.0-alpha2-final",
     "OpenIddict": "1.0.0-*",
-    "OpenIddict.Mvc": "1.0.0-*"
+    "OpenIddict.Mvc": "1.0.0-*",
+    "jQuery": "3.1.1",
+    "bootstrap": "3.3.7",
+    "Moment.js": "2.17.0",
+    "Bootstrap.v3.Datetimepicker": "4.17.43",
+    "Bootstrap.v3.Datetimepicker.CSS": "4.17.42"
   },
 
   "tools": {
