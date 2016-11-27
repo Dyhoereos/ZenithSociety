@@ -1,5 +1,9 @@
 # ZenithSociety
 
+## Current Deployment Address:
+[http://zenweb01.azurewebsites.net](http://zenweb01.azurewebsites.net)
+`Date: 11/27/2016 07:23`
+
 After pulling ASP.NET Core updates, follow these steps if you run into db problems.
 
 1. wait for packages to restore
