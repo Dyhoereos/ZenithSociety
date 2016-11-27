@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AuthenticationService } from '../authentication.service';
@@ -10,6 +10,11 @@ import { AuthenticationService } from '../authentication.service';
 })
 export class LoginComponent {
   constructor(private authService: AuthenticationService, private router: Router) {}
+
+  ngOnInit() {
+        // reset login status
+        this.authService.logout();
+    }
 
   onSubmit(username, password) {
     this.authService.login(username, password).subscribe((result) => {

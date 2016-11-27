@@ -9,12 +9,14 @@ import { LoginComponent } from './login/login.component';
 import { AuthenticationService } from './authentication.service'
 import { LoggedIn } from './logged-in.guard'
 import { AlertModule } from 'ng2-bootstrap/ng2-bootstrap';
+import { WeekComponent } from './event/week/week.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EventComponent,
-    LoginComponent
+    LoginComponent,
+    WeekComponent,
   ],
   imports: [
     AlertModule,
@@ -23,7 +25,8 @@ import { AlertModule } from 'ng2-bootstrap/ng2-bootstrap';
     HttpModule,
     RouterModule.forRoot([
       { path: 'login', component: LoginComponent },
-      // { path: 'profile', component: ProfileComponent, canActivate: [LoggedIn] }
+      { path: 'logout', component: LoginComponent },
+      // { path: 'profile', component: EventComponent, canActivate: [LoggedIn] }
       { path: 'event', component: EventComponent }
       ])
   ],
