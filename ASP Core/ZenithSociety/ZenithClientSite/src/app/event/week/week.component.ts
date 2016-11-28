@@ -17,6 +17,7 @@ export class WeekComponent implements OnInit {
   title: "Events for the week of";
   currentDate: Date;
   parentSet = false;
+  headerDate: Date;
 
   constructor(private eventService: EventService) {}
 
@@ -25,6 +26,14 @@ export class WeekComponent implements OnInit {
   	this.getAllEvents();
   }
 
+   groupEvent(x){
+     var e: Event = x;
+     if (e.EventFrom == this.headerDate){
+       return false;
+     }
+     this.headerDate = e.EventFrom;
+     return true;
+   }
   setTime(date){
     this.currentDate = date;
   }
