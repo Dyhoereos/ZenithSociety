@@ -75,7 +75,7 @@ namespace ZenithWebsite.Controllers
         }
 
         // GET: UserRoles/AddUser
-        public async Task<IActionResult> AddUser(string id)
+        public ActionResult AddUser(string id)
         {
             var userDict = new Dictionary<string, string>();
 
