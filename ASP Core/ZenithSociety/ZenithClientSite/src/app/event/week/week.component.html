@@ -1,21 +1,19 @@
 <h2>{{title}}</h2>
-<div class="container" *ngIf="results">
-     <table class="table">
-       <tbody *ngFor="let p of results">
-          <tr *ngIf="groupEvent(p)">
-            <th colspan="3">
-              {{p.EventFrom}}
-            </th>
+<div *ngIf="results">
+  <table class="table">
+    <tbody *ngFor="let p of results">
+      <tr *ngIf="groupEvent(p)">
+        <th class="text-center active" colspan="3">
+          {{p.EventFrom | date: 'fullDate'}}
+        </th>
+        <tr>
           <tr>
-          <tr>
-            <td>
-              {{p.EventFrom | date:'fullDate'}} - {{p.EventFrom | date:'shortTime'}}
+            <td class="text-center">
+              {{p.EventFrom | date:'shortTime'}} - {{p.EventTo | date:'shortTime'}}
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              {{p.Activity}}
             </td>
-            <td>
-              {{p.EventTo | date:'fullDate'}} - {{p.EventTo | date:'shortTime'}}
-            </td>
-            <td>{{p.Activity}}</td>
           </tr>
-        </tbody>
-      </table>
+    </tbody>
+  </table>
 </div>
