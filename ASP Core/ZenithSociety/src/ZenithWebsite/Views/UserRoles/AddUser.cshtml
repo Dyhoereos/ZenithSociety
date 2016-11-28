@@ -6,10 +6,14 @@
 }
 
 <h2>@ViewData["Title"]</h2>
-@*<form asp-action="AddUser">*@
-    @*<input type="hidden" name="role" value="@role" />*@
+
 <hr />
-    <table>
+    <table class="table">
+        <thead>
+            <tr>
+                <td><strong>List of all users</strong></td>
+            </tr>
+        </thead>
         @foreach (var user in users)
         {
             <tr>
@@ -18,26 +22,10 @@
                 </td>
                 <td>
                     <a asp-action="AddConfirmed" asp-route-id="@user.Key=@role">Add</a>
-                    @*<input type="hidden" name="user" value="@user.Key" />
-                    <input type="submit" value="Add" class="btn btn-default" />*@
                 </td>
             </tr>
-            
-            @*<div class="form-actions no-color">
-                <input type="submit" value="" class="btn btn-default" /> |
-                <a asp-action="Index">Back to List</a>
-            </div>*@
         }
     </table>
-@*</form>*@
-
-
-
-        
-             
-        
-
-
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
