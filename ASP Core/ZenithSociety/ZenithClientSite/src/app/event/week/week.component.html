@@ -1,19 +1,25 @@
 <h2>{{title}}</h2>
-<table class="table col-md-9" *ngIf="results">
-  <thead>
-    <tr>
-      <th class="col-md-3">Event From</th>
-      <th class="col-md-3">Event To</th>
-      <!-- <th>Activity ID</th> -->
-      <th class="col-md-5">Activity</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let p of results; let i=index">
-      <td class="">{{p.EventFrom}}</td>
-      <td class="">{{p.EventTo}}</td>
-      <!-- <td>{{p.activityId}}</td> -->
-      <td class="">{{p.Activity}}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="container">
+  <table class="table" *ngIf="results">
+    <thead>
+      <tr>
+        <th class="col-md-3">Start Time</th>
+        <th class="col-md-3">End Time</th>
+        <!-- <th>Activity ID</th> -->
+        <th class="col-md-3">Activity Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of results; let i=index">
+        <td>
+          {{p.EventFrom | date:'fullDate'}} - {{p.EventFrom | date:'shortTime'}}
+        </td>
+        <td>
+          {{p.EventTo | date:'fullDate'}} - {{p.EventTo | date:'shortTime'}}
+        </td>
+        <!-- <td>{{p.activityId}}</td> -->
+        <td>{{p.Activity}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

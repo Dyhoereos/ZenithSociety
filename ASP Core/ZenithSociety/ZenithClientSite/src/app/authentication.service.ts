@@ -18,7 +18,7 @@ export class AuthenticationService {
     let creds: string = 'username='+username+'&password='+password+'&grant_type=password';
     return this.http
       .post(
-        'http://localhost:52377/connect/token', 
+        'http://localhost:5000/connect/token',
         creds,
         { headers }
       )
@@ -41,7 +41,7 @@ export class AuthenticationService {
   }
 
   determineRole(){
-    let permissionsURL = "http://localhost:52377/api/eventsapi/getpermission"
+    let permissionsURL = "http://localhost:5000/api/eventsapi/getpermission"
     let headers = new Headers();
     headers.append('Accept', 'application/json');
     let authToken = localStorage.getItem('auth_token');
