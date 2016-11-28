@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ZenithWebsite.Data;
 using ZenithWebsite.Models.Zenith;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ZenithWebsite.Controllers
 {
@@ -20,12 +21,14 @@ namespace ZenithWebsite.Controllers
         }
 
         // GET: Activities
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Activities.ToListAsync());
         }
 
         // GET: Activities/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -43,6 +46,7 @@ namespace ZenithWebsite.Controllers
         }
 
         // GET: Activities/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -65,6 +69,7 @@ namespace ZenithWebsite.Controllers
         }
 
         // GET: Activities/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -85,6 +90,7 @@ namespace ZenithWebsite.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("ActivityId,ActivityDesc,CreationDate")] Activity activity)
         {
             if (id != activity.ActivityId)
@@ -116,6 +122,7 @@ namespace ZenithWebsite.Controllers
         }
 
         // GET: Activities/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
