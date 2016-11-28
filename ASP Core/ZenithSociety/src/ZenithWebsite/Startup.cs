@@ -48,6 +48,7 @@ namespace ZenithWebsite
             // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            
 
 
             //var connection = Configuration["Data:DefaultConnection:ConnectionString"];

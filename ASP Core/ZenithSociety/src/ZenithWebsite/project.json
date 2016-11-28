@@ -93,8 +93,13 @@
     "include": [
       "wwwroot",
       "**/*.cshtml",
+      "Views",
       "appsettings.json",
-      "web.config"
+      "web.config",
+      "config.json",
+      "config.*.json",
+      "project.json",
+      "project.*.json"
     ]
   },
 
