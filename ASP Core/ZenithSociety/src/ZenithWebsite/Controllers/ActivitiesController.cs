@@ -61,6 +61,9 @@ namespace ZenithWebsite.Controllers
         {
             if (ModelState.IsValid)
             {
+                // set creation date to current datetime
+                activity.CreationDate = DateTime.Now;
+
                 _context.Add(activity);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
