@@ -1,6 +1,6 @@
 <h2>{{title}}</h2>
 <div *ngIf="results">
-  <table class="table">
+  <table class="table" id="main-table">
     <tbody *ngFor="let p of results">
       <tr *ngIf="groupEvent(p)">
         <th class="text-center active" colspan="3">
@@ -8,9 +8,10 @@
         </th>
         <tr>
           <tr>
-            <td class="text-center">
+            <td>
               {{p.EventFrom | date:'shortTime'}} - {{p.EventTo | date:'shortTime'}}
-              &nbsp;&nbsp;&nbsp;&nbsp;
+            </td>
+            <td>
               {{p.Activity}}
             </td>
           </tr>
