@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using ZenithWebsite.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ZenithWebsite.Controllers
 {
@@ -53,6 +54,7 @@ namespace ZenithWebsite.Controllers
         }
 
         // GET: Events
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Admin()
         {
             var applicationDbContext = _context.Events.Include(e => e.Activity)
@@ -63,6 +65,7 @@ namespace ZenithWebsite.Controllers
         }
 
         // GET: Events/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -86,6 +89,7 @@ namespace ZenithWebsite.Controllers
         }
 
         // GET: Events/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["ActivityId"] = new SelectList(_context.Activities, "ActivityId", "ActivityDesc");
@@ -98,6 +102,7 @@ namespace ZenithWebsite.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("EventId,ActivityId,CreationDate,EventFrom,EventTo,IsActive,UserId")] Event @event)
         {
             if (ModelState.IsValid)
@@ -118,6 +123,7 @@ namespace ZenithWebsite.Controllers
         }
 
         // GET: Events/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -140,6 +146,7 @@ namespace ZenithWebsite.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("EventId,ActivityId,CreationDate,EventFrom,EventTo,IsActive,UserId")] Event @event)
         {
             if (id != @event.EventId)
@@ -173,6 +180,7 @@ namespace ZenithWebsite.Controllers
         }
 
         // GET: Events/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -192,6 +200,7 @@ namespace ZenithWebsite.Controllers
         // POST: Events/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var @event = await _context.Events.SingleOrDefaultAsync(m => m.EventId == id);
