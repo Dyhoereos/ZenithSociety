@@ -37,6 +37,12 @@ namespace ZenithWebsite.Controllers
             _logger = loggerFactory.CreateLogger<AccountController>();
         }
 
+        public IActionResult AccessDenied()
+        {
+            ViewData["message"] = "This page is for authorized users only.";
+            return View();
+        }
+
         //
         // GET: /Account/Login
         [HttpGet]
@@ -469,4 +475,5 @@ namespace ZenithWebsite.Controllers
 
         #endregion
     }
+
 }
