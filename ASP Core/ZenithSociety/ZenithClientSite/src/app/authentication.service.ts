@@ -36,8 +36,8 @@ export class AuthenticationService {
 
   logout() {
     localStorage.removeItem('auth_token');
+    localStorage.removeItem('can_scroll');
     this.loggedIn = false;
-    this.canScroll = false;
   }
 
   determineRole(){
@@ -50,8 +50,8 @@ export class AuthenticationService {
     return this.http.get(permissionsURL, {headers})
       .map(res => res.json())
       .subscribe(
-        data => {this.canScroll = true; this.router.navigate(['event']);},
-        err => {this.canScroll = false; this.router.navigate(['event']);},
+        data => {localStorage.setItem('can_scroll', 'true'); this.router.navigate(['event']);},
+        err => {localStorage.setItem('can_scroll', 'false'); this.router.navigate(['event']);},
       );
   }
 
