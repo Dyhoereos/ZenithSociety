@@ -42,10 +42,13 @@ namespace ZenithWebsite.Controllers
             json += "]";
             return json;
         }
-        //public IEnumerable<Event> GetEvents()
-        //{
-        //    return _context.Events;
-        //}
+
+        [HttpGet("getpermission")]
+        [Authorize(Roles = "Admin, Member")]
+        public Boolean GetPermission()
+        {
+            return true;
+        }
 
         // GET: api/EventsApi/5
         [HttpGet("{id}")]
