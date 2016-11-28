@@ -19,7 +19,7 @@ export class WeekComponent implements OnInit {
   parentSet = false;
 
   constructor(private eventService: EventService) {}
-  
+
   ngOnInit() {
     if (!this.parentSet) this.currentDate = new Date();
   	this.getAllEvents();
@@ -32,7 +32,7 @@ export class WeekComponent implements OnInit {
   getAllEvents(): void {
     this.results = [];
     this.eventService.getAll()
-      .then(data => this.parseEvents(data));  
+      .then(data => this.parseEvents(data));
   }
 
   parseEvents(eventList){
@@ -51,7 +51,7 @@ export class WeekComponent implements OnInit {
         this.results.push(event);
       }
     }
-    
+
     var sortedResults: Array<Event>;
     sortedResults = this.results.slice(0);
     sortedResults.sort((lhs, rhs): number => {
